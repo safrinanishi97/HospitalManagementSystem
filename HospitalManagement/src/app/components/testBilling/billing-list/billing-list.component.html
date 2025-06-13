@@ -1,0 +1,66 @@
+<div class="container-fluid mt-4">
+    <h2 class="mb-4 text-primary">
+      <i class="bi bi-receipt me-2"></i>Test Billing Management
+    </h2>
+  
+    <div class="card shadow mb-4">
+      <div class="card-header bg-primary text-white d-flex justify-content-between">
+        <h5 class="mb-0">Billing Records</h5>
+        <div>
+          <button class="btn btn-sm btn-light me-2" (click)="loadBillings()">
+            <i class="bi bi-arrow-clockwise"></i> Refresh
+          </button>
+          <button class="btn btn-sm btn-success" (click)="navigateToCreate()">
+            <i class="bi bi-plus"></i> New Billing
+          </button>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div *ngIf="isLoading" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+  
+        <div class="table-responsive" *ngIf="!isLoading">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Bill No</th>
+                <th>Patient ID</th>
+                <th>Total</th>
+                <th>Discount</th>
+                <th>Payable</th>
+                <th>Paid</th>
+                <th>Due</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let billing of billings">
+                <td>{{ billing.billNo }}</td>
+                <td>{{ billing.patientId }}</td>
+                <td>{{ billing.totalAmount | currency }}</td>
+                <td>{{ billing.discountAmount | currency }}</td>
+                <td>{{ billing.totalAmount - billing.discountAmount | currency }}</td>
+                <td>{{ billing.paidAmount | currency }}</td>
+                <td>{{ (billing.totalAmount - billing.discountAmount) - billing.paidAmount | currency }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary me-2" (click)="navigateToEdit(billing.testBillingId!)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteBilling(billing.testBillingId!)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="billings.length === 0">
+                <td colspan="8" class="text-center py-4 text-muted">No billing records found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

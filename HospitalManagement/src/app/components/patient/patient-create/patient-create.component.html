@@ -1,0 +1,75 @@
+<h2>Add New Patient</h2>
+<form (ngSubmit)="createPatient()" class="row g-3">
+  <div class="col-md-6">
+    <label for="patientNo" class="form-label">Patient No:</label>
+    <input type="text" id="patientNo" name="patientNo" [(ngModel)]="newPatient.patientNo" required
+      class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="firstName" class="form-label">First Name:</label>
+    <input type="text" id="firstName" name="firstName" [(ngModel)]="newPatient.firstName" required
+      class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="lastName" class="form-label">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" [(ngModel)]="newPatient.lastName" required class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="registrationId" class="form-label">Registration ID:</label>
+    <input type="number" id="registrationId" name="registrationId" [(ngModel)]="newPatient.registrationId"
+      class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="gender" class="form-label">Gender:</label>
+    <select id="gender" name="gender" [(ngModel)]="newPatient.gender" required class="form-select">
+      <option value="" disabled selected>Select Gender</option>
+      <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="age" class="form-label">Age:</label>
+    <input type="number" id="age" name="age" [(ngModel)]="newPatient.age" required class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="patientType" class="form-label">Patient Type:</label>
+    <select id="patientType" name="patientType" [(ngModel)]="newPatient.patientType" required class="form-select">
+      <option value="" disabled selected>Select Patient Type</option>
+      <option *ngFor="let pt of patientTypes" [value]="pt">{{ pt }}</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="visitType" class="form-label">Visit Type:</label>
+    <select id="visitType" name="visitType" [(ngModel)]="newPatient.visitType" class="form-select">
+      <option value="" disabled selected>Select Visit Type (Optional)</option>
+      <option *ngFor="let vt of visitTypes" [value]="vt">{{ vt }}</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="tokenFee" class="form-label">Token Fee:</label>
+    <input type="number" id="tokenFee" name="tokenFee" [(ngModel)]="newPatient.tokenFee" required
+      class="form-control" />
+  </div>
+  <div class="col-md-6">
+    <label for="doctorId" class="form-label">Doctor:</label>
+    <select id="doctorId" name="doctorId" [(ngModel)]="newPatient.doctorId" required class="form-select">
+      <option value="" disabled selected>Select Doctor</option>
+      <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
+        {{ doctor.firstName }} {{ doctor.lastName }}
+        {{ doctor.specializationName }} {{ doctor.departmentName }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="chamberId" class="form-label">Chamber:</label>
+    <select id="chamberId" name="chamberId" [(ngModel)]="newPatient.chamberId" required class="form-select">
+      <option value="" disabled selected>Select Chamber</option>
+      <option *ngFor="let chamber of chambers" [value]="chamber.chamberId">
+        {{ chamber.chamberNo }} - {{ chamber.location }}
+      </option>
+    </select>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary me-2">Create Patient</button>
+    <button routerLink="/" class="btn btn-secondary me-2">Cancel</button>
+  </div>
+</form>

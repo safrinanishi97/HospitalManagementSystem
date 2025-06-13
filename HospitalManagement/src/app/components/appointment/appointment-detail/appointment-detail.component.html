@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <app-loading *ngIf="isLoading"></app-loading>
+
+  <div *ngIf="appointment && !isLoading" class="card">
+    <div class="card-header bg-info text-white d-flex justify-content-between">
+      <h3>Appointment Details</h3>
+      <div>
+        <a
+          [routerLink]="['/appointment/edit', appointment.appointmentId]"
+          class="btn btn-warning me-2"
+          >Edit</a
+        >
+        <button (click)="deleteAppointment()" class="btn btn-danger">
+          Delete
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <h5>Basic Information</h5>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Appointment ID:</strong> {{ appointment.appointmentId }}
+            </li>
+            <!-- <li class="list-group-item">
+              <strong>Patient ID:</strong> {{ appointment.patientId }}
+            </li> -->
+            <li class="list-group-item">
+              <strong>Patient Name:</strong> {{ appointment.firstName }}
+              {{ appointment.lastName }}
+            </li>
+            <li class="list-group-item">
+              <strong>Gender</strong> {{ appointment.gender }}
+            </li>
+            <li class="list-group-item">
+              <strong>Contact Number:</strong> {{ appointment.patientPhone }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Doctor Name:</strong> {{ appointment.docFirstName }}
+              {{ appointment.docLastName }}
+            </li>
+            <li class="list-group-item">
+              <strong>Department:</strong> {{ appointment.doctorDepartment }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h5>Appointment Information</h5>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>Date:</strong>
+              {{ appointment.appointmentDate | date : "full" }}
+            </li>
+            <li class="list-group-item">
+              <strong>Status:</strong> {{ appointment.appointmentStatus }}
+            </li>
+            <li class="list-group-item">
+              <strong>Type:</strong> {{ appointment.appointmentType }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <a routerLink="/appointment" class="btn btn-secondary">Back to List</a>
+    </div>
+  </div>
+</div>

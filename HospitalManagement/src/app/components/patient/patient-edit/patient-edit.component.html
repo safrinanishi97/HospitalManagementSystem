@@ -1,0 +1,115 @@
+<h2>Edit Patient</h2>
+<form *ngIf="patient" (ngSubmit)="updatePatient()" class="form-horizontal">
+  <div class="form-group">
+    <label for="patientNo" class="col-sm-3 control-label">Patient No:</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        id="patientNo"
+        name="patientNo"
+        [(ngModel)]="patient.patientNo"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="firstName" class="col-sm-3 control-label">First Name:</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        [(ngModel)]="patient.firstName"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="lastName" class="col-sm-3 control-label">Last Name:</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        [(ngModel)]="patient.lastName"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="registrationId" class="col-sm-3 control-label"
+      >Registration ID:</label
+    >
+    <div class="col-sm-9">
+      <input
+        type="number"
+        id="registrationId"
+        name="registrationId"
+        [(ngModel)]="patient.registrationId"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="gender" class="col-sm-3 control-label">Gender:</label>
+    <div class="col-sm-9">
+      <select
+        id="gender"
+        name="gender"
+        [(ngModel)]="patient.gender"
+        class="form-select"
+      >
+        <option value="" disabled selected>Select Gender</option>
+        <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="age" class="col-sm-3 control-label">Age:</label>
+    <div class="col-sm-9">
+      <input
+        type="number"
+        id="age"
+        name="age"
+        [(ngModel)]="patient.age"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="patientType" class="col-sm-3 control-label"
+      >Patient Type:</label
+    >
+    <div class="col-sm-9">
+      <select
+        id="patientType"
+        name="patientType"
+        [(ngModel)]="patient.patientType"
+        class="form-select"
+      >
+        <option value="" disabled selected>Select Patient Type</option>
+        <option *ngFor="let pt of patientTypes" [value]="pt">{{ pt }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="visitType" class="col-sm-3 control-label">Visit Type:</label>
+    <div class="col-sm-9">
+      <select
+        id="visitType"
+        name="visitType"
+        [(ngModel)]="patient.visitType"
+        class="form-select"
+      >
+        <option value="" disabled selected>Select Visit Type (Optional)</option>
+        <option *ngFor="let vt of visitTypes" [value]="vt">{{ vt }}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <button type="submit" class="btn btn-primary">Update Patient</button>
+      <button routerLink="/" class="btn btn-default">Cancel</button>
+    </div>
+  </div>
+</form>

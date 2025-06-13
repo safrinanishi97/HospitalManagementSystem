@@ -1,0 +1,420 @@
+<!-- <div class="container mt-4">
+  <h2 class="text-center mb-4 text-primary">
+    {{ isEdit ? "Edit" : "Create" }} Doctor
+  </h2>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="border rounded p-4 shadow-sm bg-light"
+  >
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">First Name</label>
+        <input
+          formControlName="firstName"
+          class="form-control"
+          placeholder="Enter first name"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Last Name</label>
+        <input
+          formControlName="lastName"
+          class="form-control"
+          placeholder="Enter last name"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Department</label>
+        <input
+          formControlName="departmentName"
+          class="form-control"
+          placeholder="Enter department"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Specialization</label>
+        <input
+          formControlName="specializationName"
+          class="form-control"
+          placeholder="Enter specialization"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Phone</label>
+        <input
+          formControlName="phone"
+          class="form-control"
+          placeholder="Enter phone number"
+        />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter email address"
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label">Doctor Image</label>
+        <input
+          type="file"
+          (change)="onFileChange($event)"
+          class="form-control"
+        />
+      </div>
+
+      <div formArrayName="doctorChambers">
+        <div
+          *ngFor="let chamber of doctorChambers.controls; let i = index"
+          [formGroupName]="i"
+          class="chamber-group"
+        >
+          <label>Chamber ID</label>
+          <input formControlName="chamberId" type="number" required />
+
+          <label>Available Time</label>
+          <input formControlName="availableTime" type="time" required />
+
+          <button
+            type="button"
+            (click)="removeChamber(i)"
+            *ngIf="doctorChambers.length > 1"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <button type="button" (click)="addChamber()">Add Chamber</button>
+
+      <br /><br />-->
+
+<!-- Doctor Schedules -->
+<!-- <div formArrayName="doctorSchedules">
+        <div *ngFor="let schedule of doctorSchedules.controls; let i = index">
+          <div [formGroupName]="i">
+            <input formControlName="chamberId" placeholder="Chamber ID" />
+            <input
+              formControlName="daysOfWeek"
+              placeholder="Days (e.g., Monday)"
+            />
+            <input formControlName="startTime" type="time" />
+            <input formControlName="endTime" type="time" />
+            <button type="button" (click)="removeSchedule(i)">
+              Remove Schedule
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="addSchedule()">Add Schedule</button>
+    </div>
+    <br /><br />
+
+    <div formArrayName="doctorFees">
+      <div
+        *ngFor="let fee of doctorFees.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <input type="number" formControlName="fees" placeholder="Fee Amount" />
+        <input
+          type="number"
+          formControlName="discountAmount"
+          placeholder="Discount"
+        />
+        <input type="date" formControlName="effectiveDate" /> -->
+
+<!-- Add options based on  enum -->
+<!-- <select formControlName="visitType">
+          <option [value]="0">FirstVisit</option>
+          <option [value]="1">FollowUp</option>
+          <option [value]="2">TestReview</option>
+          <option [value]="3">Others</option>
+        </select>
+
+        <button type="button" (click)="removeFee(i)">Remove</button>
+      </div>
+
+      <button type="button" (click)="addFee()">Add Fee</button>
+    </div>
+
+    <div class="text-end mt-4">
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-check-circle-fill"></i> Save
+      </button>
+    </div>
+  </form>
+</div>  -->
+
+<div class="container mt-5">
+  <h2 class="text-center text-primary mb-4">
+    👨‍⚕️ {{ isEdit ? "Edit" : "Create" }} Doctor
+  </h2>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="p-4 rounded shadow bg-white border"
+  >
+    <div class="row g-4">
+      <!-- Personal Info -->
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">First Name</label>
+        <input
+          formControlName="firstName"
+          class="form-control"
+          placeholder="Enter first name"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">Last Name</label>
+        <input
+          formControlName="lastName"
+          class="form-control"
+          placeholder="Enter last name"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">Department</label>
+        <input
+          formControlName="departmentName"
+          class="form-control"
+          placeholder="Enter department"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">Specialization</label>
+        <input
+          formControlName="specializationName"
+          class="form-control"
+          placeholder="Enter specialization"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">Phone</label>
+        <input
+          formControlName="phone"
+          class="form-control"
+          placeholder="Enter phone number"
+        />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-bold text-secondary">Email</label>
+        <input
+          formControlName="email"
+          class="form-control"
+          placeholder="Enter email address"
+        />
+      </div>
+
+      <div class="col-md-12">
+        <label class="form-label fw-bold text-secondary">Doctor Image</label>
+        <input
+          type="file"
+          (change)="onFileChange($event)"
+          class="form-control"
+        />
+      </div>
+
+      <!-- Doctor Chambers -->
+      <div class="col-md-12">
+        <div class="card border-info mb-3">
+          <div class="card-header bg-info text-white">
+            <strong>🚪Doctor Chambers</strong>
+          </div>
+          <div class="card-body">
+            <div formArrayName="doctorChambers">
+              <div
+                *ngFor="let chamber of doctorChambers.controls; let i = index"
+                [formGroupName]="i"
+                class="mb-3 border-bottom pb-3"
+              >
+                <div class="row g-2">
+                  <div class="col-md-4">
+                    <label class="form-label">Chamber ID</label>
+                    <input
+                      formControlName="chamberId"
+                      type="number"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Available Time</label>
+                    <input
+                      formControlName="availableTime"
+                      type="time"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-4 d-flex align-items-end">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger w-100"
+                      (click)="removeChamber(i)"
+                      *ngIf="doctorChambers.length > 1"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" (click)="addChamber()" class="btn btn-info">
+              + Add Chamber
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Schedules -->
+      <div class="col-md-12">
+        <div class="card border-warning mb-3">
+          <div class="card-header bg-warning text-dark">
+            <strong>📅 Doctor Schedules</strong>
+          </div>
+          <div class="card-body">
+            <div formArrayName="doctorSchedules">
+              <div
+                *ngFor="let schedule of doctorSchedules.controls; let i = index"
+                [formGroupName]="i"
+                class="mb-3 border-bottom pb-3"
+              >
+                <div class="row g-2">
+                  <div class="col-md-3">
+                    <label> Chamber ID: </label>
+                    <input formControlName="chamberId" class="form-control" />
+                  </div>
+                  <div class="col-md-3">
+                    <label> Days Of Week </label>
+                    <input
+                      formControlName="daysOfWeek"
+                      class="form-control"
+                      placeholder="Days (e.g., Monday)"
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <label> Start Time: </label>
+                    <input
+                      formControlName="startTime"
+                      type="time"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <label>End Time</label>
+                    <input
+                      formControlName="endTime"
+                      type="time"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-2 d-flex align-items-end">
+                    <button
+                      type="button"
+                      (click)="removeSchedule(i)"
+                      class="btn btn-outline-danger w-100"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              (click)="addSchedule()"
+              class="btn btn-warning text-dark"
+            >
+              + Add Schedule
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Fees -->
+      <div class="col-md-12">
+        <div class="card border-success mb-3">
+          <div class="card-header bg-success text-white">
+            <strong>💵Doctor Fees</strong>
+          </div>
+          <div class="card-body">
+            <div formArrayName="doctorFees">
+              <div
+                *ngFor="let fee of doctorFees.controls; let i = index"
+                [formGroupName]="i"
+                class="mb-3 border-bottom pb-3"
+              >
+                <div class="row g-2">
+                  <div class="col-md-2">
+                    <label>Fees:</label>
+                    <input
+                      type="number"
+                      formControlName="fees"
+                      class="form-control"
+                      placeholder="Fee Amount"
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <label> Discount: </label>
+                    <input
+                      type="number"
+                      formControlName="discountAmount"
+                      class="form-control"
+                      placeholder="Discount"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <label> Effective Date: </label>
+                    <input
+                      type="date"
+                      formControlName="effectiveDate"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <label> Visit Purpose: </label>
+                    <select formControlName="visitType" class="form-select">
+                      <option [value]="0">FirstVisit</option>
+                      <option [value]="1">FollowUp</option>
+                      <option [value]="2">TestReview</option>
+                      <option [value]="3">Others</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 d-flex align-items-end">
+                    <button
+                      type="button"
+                      (click)="removeFee(i)"
+                      class="btn btn-outline-danger w-100"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" (click)="addFee()" class="btn btn-success">
+              + Add Fee
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-end mt-4">
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i class="bi bi-check-circle-fill"></i> Save Doctor
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

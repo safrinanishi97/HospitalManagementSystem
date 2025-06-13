@@ -1,0 +1,12 @@
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+small.text-success {
+  font-weight: 600;
+}
+
+small.text-danger {
+  font-weight: 600;
+}

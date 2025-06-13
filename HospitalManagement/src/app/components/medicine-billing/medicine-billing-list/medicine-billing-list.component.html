@@ -1,0 +1,41 @@
+<h2>Medicine Billings</h2>
+<button routerLink="/medicine-billing/create" class="btn btn-primary">
+  Add New
+</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bill No</th>
+      <th>Patient Name</th>
+      <th>Ref By</th>
+      <th>Total Amount</th>
+      <th>Payable Amount</th>
+      <th>Due Amount</th>
+      <th>Delivery Date</th>
+      <th>Delivery Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let billing of medicineBillings">
+      <td>{{ billing.medicineBillingId }}</td>
+      <td>{{ billing.billNo }}</td>
+      <td>{{ billing.patientName }}</td>
+      <td>{{ billing.refBy }}</td>
+      <td>{{ billing.totalAmount }}</td>
+      <td>{{ billing.payableAmount }}</td>
+      <td>{{ billing.dueAmount }}</td>
+      <td>{{ billing.deliveryDate | date }}</td>
+      <td>{{ billing.deliveryTime }}</td>
+      <td>
+        <button
+          [routerLink]="['/medicine-billings', billing.medicineBillingId]"
+          class="btn btn-sm btn-info"
+        >
+          View Details
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

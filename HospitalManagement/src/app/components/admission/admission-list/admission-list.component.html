@@ -1,0 +1,66 @@
+<div class="container mt-4">
+
+    <button routerLink="/admissions/new" class="btn btn-primary me-2">
+        Admissions New
+    </button>
+
+
+    <h2 class="mb-4 text-center">Admission Records</h2>
+
+    <div *ngIf="admissions.length > 0; else noData">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle shadow-sm">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Admission No</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Bed</th>
+                        <th>Admission Date</th>
+                        <th>Discharge Date</th>
+                        <th>Nurse</th>
+                        <th>Floor</th>
+                        <th>Charge/Day</th>
+                        <th>Admission Fee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let admission of admissions">
+                        <td class="text-center fw-semibold">{{ admission.admissionId }}</td>
+                        <td>{{ admission.patientFirstName }} {{ admission.patientLastName }}</td>
+                        <td>{{ admission.doctorFirstName }} {{ admission.doctorLastName }}</td>
+                        <td>
+                            {{ admission.bedNumber }}
+                            <br />
+                            <span class="badge" [ngClass]="{
+                    'bg-success': !admission.isOccupied,
+                    'bg-danger': admission.isOccupied
+                  }">
+                                {{ admission.isOccupied ? 'Occupied' : 'Available' }}
+                            </span>
+                        </td>
+                        <td>{{ admission.admissionDate | date: 'shortDate' }}</td>
+                        <td>{{ admission.dischargeDate ? (admission.dischargeDate | date: 'shortDate') : 'N/A' }}</td>
+                        <td>{{ admission.nurseName || 'N/A' }}</td>
+                        <td>{{ admission.floor || 'N/A' }}</td>
+                        <td>{{ admission.chargePerDay | currency }}</td>
+                        <td>{{ admission.admissionFee | currency }}</td>
+                        <td class="text-center">
+                            <button (click)="deleteAdmission(admission.admissionId)"
+                                class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ng-template #noData>
+        <div class="alert alert-info text-center" role="alert">
+            No admissions available.
+        </div>
+    </ng-template>
+</div>

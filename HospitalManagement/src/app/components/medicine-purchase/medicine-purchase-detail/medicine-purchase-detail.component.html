@@ -1,0 +1,88 @@
+<br><br>
+<div *ngIf="medicinePurchase && medicine" class="card border-0 shadow-lg mb-4" style="max-width: 700px; margin: 0 auto;">
+  <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
+  <h2 class="mb-0"><i class="bi bi-receipt-fill me-2"></i> Medicine Purchase Details</h2>
+  <span class="badge bg-light text-dark fs-6">
+  {{ medicinePurchase.purchaseDate | date:'mediumDate' }}
+  </span>
+  </div>
+ 
+
+  <div class="card-body p-4">
+  <div class="row g-3">
+  <div class="col-md-6">
+  <h4 class="text-muted mb-3"><i class="bi bi-info-circle-fill me-2"></i> Purchase Info</h4>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-receipt me-2"></i> Purchase ID:</div>
+  <div class="col-6"><span class="badge bg-secondary">{{ medicinePurchase.medicinePurchaseId }}</span></div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-shop me-2"></i> Supplier:</div>
+  <div class="col-6">{{ medicinePurchase.supplier }}</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-calendar-check me-2"></i> Date:</div>
+  <div class="col-6">{{ medicinePurchase.purchaseDate | date:'longDate' }}</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-box-seam me-2"></i> Quantity Purchased:</div>
+  <div class="col-6">{{ medicinePurchase.quantityPurchased }} units</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i> Unit Price:</div>
+  <div class="col-6">{{ medicinePurchase.purchasePrice }}tk</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-percent me-2"></i> VAT:</div>
+  <div class="col-6">{{ medicinePurchase.vat }}%</div>
+  </div>
+  </div>
+ 
+
+  <div class="col-md-6">
+  <h4 class="text-muted mb-3"><i class="bi bi-capsule-pill me-2"></i> Medicine Info</h4>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-upc-scan me-2"></i> Medicine ID:</div>
+  <div class="col-6"><span class="badge bg-secondary">{{ medicine.medicineId }}</span></div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-capsule me-2"></i> Medicine Name:</div>
+  <div class="col-6">{{ medicine.medicineName }}</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-tag me-2"></i> Medicine Type:</div>
+  <div class="col-6">{{ medicine.medicineType }}</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-pen me-2"></i> Generic Name:</div>
+  <div class="col-6">{{ medicine.genericName }}</div>
+  </div>
+  <div class="row mb-2">
+  <div class="col-6 fw-bold text-secondary"><i class="bi bi-building me-2"></i> Company:</div>
+  <div class="col-6">{{ medicine.company }}</div>
+  </div>
+  </div>
+  </div>
+ 
+
+  <div class="bg-light p-3 rounded mt-3 border-start border-4 border-success">
+  <div class="d-flex justify-content-between align-items-center">
+  <h6 class="text-muted mb-0">
+  <i class="bi bi-calculator me-2"></i> Total Price
+  </h6>
+  <p class="fs-4 fw-bold text-success mb-0">{{ medicinePurchase.totalPrice }}tk</p>
+  </div>
+  </div>
+ 
+
+  <div class="mt-4 d-flex justify-content-end gap-2">
+  <a [routerLink]="['/medicine-purchases/edit', medicinePurchase.medicinePurchaseId]"
+  class="btn btn-warning">
+  <i class="bi bi-pencil-square me-2"></i> Edit
+  </a>
+  <a routerLink="/medicine-purchases" class="btn btn-secondary">
+  <i class="bi bi-arrow-left me-2"></i> Back
+  </a>
+  </div>
+  </div>
+ </div>

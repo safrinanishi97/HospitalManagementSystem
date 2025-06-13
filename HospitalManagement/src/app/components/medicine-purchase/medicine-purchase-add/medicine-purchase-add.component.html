@@ -1,0 +1,72 @@
+<div class="container mt-5">
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  
+    <div class="card shadow-sm border-success">
+      <div class="card-header bg-success text-white py-3">
+        <h5 class="mb-0">Add New Medicine Purchase</h5>
+      </div>
+      <div class="card-body p-4">
+        <form [formGroup]="purchaseForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="medicineId" class="form-label"><b>Medicine</b></label>
+            <select class="form-select" id="medicineId" formControlName="medicineId" required>
+              <option value="" disabled>Select Medicine</option>
+              <option *ngFor="let medicine of medicinesDropdown" [value]="medicine.medicineId">
+                {{ medicine.medicineName }} ({{ medicine.genericName }})
+              </option>
+            </select>
+            <div *ngIf="purchaseForm.controls['medicineId'].invalid && (purchaseForm.controls['medicineId'].dirty || purchaseForm.controls['medicineId'].touched)" class="text-danger">
+              Medicine is required.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="purchaseDate" class="form-label"><b>Purchase Date</b></label>
+            <input type="date" class="form-control" id="purchaseDate" formControlName="purchaseDate" required>
+            <div *ngIf="purchaseForm.controls['purchaseDate'].invalid && (purchaseForm.controls['purchaseDate'].dirty || purchaseForm.controls['purchaseDate'].touched)" class="text-danger">
+              Purchase Date is required.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="purchasePrice" class="form-label"><b>Unit Price (tk)</b></label>
+            <input type="number" class="form-control" id="purchasePrice" formControlName="purchasePrice" required>
+            <div *ngIf="purchaseForm.controls['purchasePrice'].invalid && (purchaseForm.controls['purchasePrice'].dirty || purchaseForm.controls['purchasePrice'].touched)" class="text-danger">
+              <div *ngIf="purchaseForm.controls['purchasePrice'].errors?.['required']">Purchase Price is required.</div>
+              <div *ngIf="purchaseForm.controls['purchasePrice'].errors?.['min']">Purchase Price must be greater than or equal to 0.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="quantityPurchased" class="form-label"><b>Quantity Puchased</b></label>
+            <input type="number" class="form-control" id="quantityPurchased" formControlName="quantityPurchased" required pattern="^[0-9]*$">
+            <div *ngIf="purchaseForm.controls['quantityPurchased'].invalid && (purchaseForm.controls['quantityPurchased'].dirty || purchaseForm.controls['quantityPurchased'].touched)" class="text-danger">
+              <div *ngIf="purchaseForm.controls['quantityPurchased'].errors?.['required']">Quantity is required.</div>
+              <div *ngIf="purchaseForm.controls['quantityPurchased'].errors?.['min']">Quantity must be at least 1.</div>
+              <div *ngIf="purchaseForm.controls['quantityPurchased'].errors?.['pattern']">Quantity must be a whole number.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="vat" class="form-label"><b>VAT (%)</b></label>
+            <input type="number" class="form-control" id="vat" formControlName="vat" required>
+            <div *ngIf="purchaseForm.controls['vat'].invalid && (purchaseForm.controls['vat'].dirty || purchaseForm.controls['vat'].touched)" class="text-danger">
+              <div *ngIf="purchaseForm.controls['vat'].errors?.['required']">VAT is required.</div>
+              <div *ngIf="purchaseForm.controls['vat'].errors?.['min']">VAT must be greater than or equal to 0.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="totalPrice" class="form-label"><b>Total Price (tk)</b></label>
+            <input type="number" class="form-control" id="totalPrice" formControlName="totalPrice" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="supplier" class="form-label"><b>Supplier</b></label>
+            <input type="text" class="form-control" id="supplier" formControlName="supplier" required>
+            <div *ngIf="purchaseForm.controls['supplier'].invalid && (purchaseForm.controls['supplier'].dirty || purchaseForm.controls['supplier'].touched)" class="text-danger">
+              Supplier is required.
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary ms-2" (click)="onCancel()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

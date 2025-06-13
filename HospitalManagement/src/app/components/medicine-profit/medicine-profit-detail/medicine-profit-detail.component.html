@@ -1,0 +1,99 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-success">
+        <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
+          <h2 class="mb-0"><i class="bi bi-graph-up me-2"></i> Medicine Profit Details</h2>
+          <span *ngIf="medicineProfit" class="badge bg-light text-dark fs-6">
+            <i class="bi bi-calendar-event-fill me-1"></i> {{ medicineProfit.profitDate | date: 'mediumDate' }}
+          </span>
+        </div>
+        <div class="card-body p-4">
+          <div *ngIf="loading" class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+          </div>
+
+          <div *ngIf="medicineProfit && medicineSale && !loading && !error">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <h4 class="text-muted mb-3"><i class="bi bi-info-circle-fill me-2"></i> Profit Information</h4>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-key-fill me-2"></i> Profit ID:</div>
+                  <div class="col-6"><span class="badge bg-secondary">{{ medicineProfit.medicineProfitId }}</span></div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-capsule-fill me-2"></i> Medicine Name:</div>
+                  <div class="col-6">{{ medicineName }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-calendar-event me-2"></i> Profit Date:</div>
+                  <div class="col-6">{{ medicineProfit.profitDate | date: 'mediumDate' }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i> Profit/Unit:</div>
+                  <div class="col-6">{{ medicineProfit.profitAmount }} tk</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-box-seam me-2"></i> Quantity:</div>
+                  <div class="col-6">{{ medicineProfit.quantityProfit }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-piggy-bank-fill me-2"></i> Total Profit:</div>
+                  <div class="col-6">{{ medicineProfit.totalProfit }} tk</div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h4 class="text-muted mb-3"><i class="bi bi-cart-fill me-2"></i> Sale Details</h4>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-receipt me-2"></i> Sale ID:</div>
+                  <div class="col-6"><span class="badge bg-primary">{{ medicineSale.medicineSaleId }}</span></div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-calendar-check me-2"></i> Sale Date:</div>
+                  <div class="col-6">{{ medicineSale.saleDate | date: 'mediumDate' }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-person-fill me-2"></i> Customer Name:</div>
+                  <div class="col-6">{{ medicineSale.customerName }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i> Sale Price:</div>
+                  <div class="col-6">{{ medicineSale.salePrice }} tk</div>
+                </div>
+                 <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-box-seam me-2"></i> Quantity Sold:</div>
+                  <div class="col-6">{{ medicineSale.quantitySold }}</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-percent me-2"></i> Discount:</div>
+                  <div class="col-6">{{ medicineSale.discount }} %</div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i> Total Price:</div>
+                  <div class="col-6">{{ medicineSale.totalPrice }} tk</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-end gap-2">
+              <a [routerLink]="['/medicine-profits/edit', medicineProfit.medicineProfitId]"
+                 class="btn btn-warning">
+                <i class="bi bi-pencil-square me-2"></i> Edit
+              </a>
+              <button (click)="goBack()" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle me-2"></i> Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

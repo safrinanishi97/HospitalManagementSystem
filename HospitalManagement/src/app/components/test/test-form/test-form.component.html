@@ -1,0 +1,59 @@
+<!-- src/app/components/test-form/test-form.component.html -->
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h3>{{ isEditMode ? 'Edit Test' : 'Create New Test' }}</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #testForm="ngForm">
+          <div class="mb-3">
+            <label for="testName" class="form-label">Test Name</label>
+            <input type="text" class="form-control" id="testName" 
+                   [(ngModel)]="formData.testName" name="testName" 
+                   required maxlength="100" #testName="ngModel">
+            <div *ngIf="testName.invalid && (testName.dirty || testName.touched)" 
+                 class="text-danger">
+              <div *ngIf="testName.errors?.['required']">
+                Test name is required
+              </div>
+              <div *ngIf="testName.errors?.['maxlength']">
+                Test name must be less than 100 characters
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" 
+                   [(ngModel)]="formData.price" name="price" 
+                   required min="0" step="0.01" #price="ngModel">
+            <div *ngIf="price.invalid && (price.dirty || price.touched)" 
+                 class="text-danger">
+              <div *ngIf="price.errors?.['required']">
+                Price is required
+              </div>
+              <div *ngIf="price.errors?.['min']">
+                Price must be 0 or greater
+              </div>
+            </div>
+          </div>
+  
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" 
+                    routerLink="/tests">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" 
+                    [disabled]="!testForm.form.valid || isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              {{ isEditMode ? 'Update' : 'Create' }}
+            </button>
+          </div>
+  
+          <div *ngIf="error" class="alert alert-danger mt-3">
+            {{ error }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

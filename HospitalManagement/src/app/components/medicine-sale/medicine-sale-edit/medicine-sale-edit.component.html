@@ -1,0 +1,81 @@
+<div class="container mt-5">
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="loading" class="alert alert-info">Loading medicine sale for editing...</div>
+
+  <div class="card shadow-sm border-success" *ngIf="saleForm && !loading">
+    <div class="card-header bg-success text-white py-3">
+      <h5 class="mb-0">Edit Medicine Sale</h5>
+    </div>
+    <div class="card-body p-4">
+      <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="medicineId" class="form-label"><b>Medicine</b></label>
+          <select class="form-select" id="medicineId" formControlName="medicineId" required>
+            <option value="">-- Select Medicine --</option>
+            <option *ngFor="let medicine of medicines" [value]="medicine.medicineId">
+              {{ medicine.medicineName }}
+              <span *ngIf="medicine.genericName">({{ medicine.genericName }})</span>
+            </option>
+          </select>
+          <div *ngIf="saleForm.controls['medicineId'].invalid && (saleForm.controls['medicineId'].dirty || saleForm.controls['medicineId'].touched)" class="text-danger">
+            Medicine is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="saleDate" class="form-label"><b>Sale Date</b></label>
+          <input type="date" class="form-control" id="saleDate" formControlName="saleDate" required>
+          <div *ngIf="saleForm.controls['saleDate'].invalid && (saleForm.controls['saleDate'].dirty || saleForm.controls['saleDate'].touched)" class="text-danger">
+            Sale Date is required.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="salePrice" class="form-label"><b>Unit Price</b></label>
+          <input type="number" class="form-control" id="salePrice" formControlName="salePrice" required>
+          <div *ngIf="saleForm.controls['salePrice'].invalid && (saleForm.controls['salePrice'].dirty || saleForm.controls['salePrice'].touched)" class="text-danger">
+            <div *ngIf="saleForm.controls['salePrice'].errors?.['required']">Sale Price is required.</div>
+            <div *ngIf="saleForm.controls['salePrice'].errors?.['min']">Sale Price must be greater than or equal to 0.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="quantitySold" class="form-label"><b>Quantity Sold</b></label>
+          <input type="number" class="form-control" id="quantitySold" formControlName="quantitySold" required>
+          <div *ngIf="saleForm.controls['quantitySold'].invalid && (saleForm.controls['quantitySold'].dirty || saleForm.controls['quantitySold'].touched)" class="text-danger">
+            <div *ngIf="saleForm.controls['quantitySold'].errors?.['required']">Quantity is required.</div>
+            <div *ngIf="saleForm.controls['quantitySold'].errors?.['min']">Quantity must be at least 1.</div>
+            <div *ngIf="saleForm.controls['quantitySold'].errors?.['pattern']">Quantity must be a whole number.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="discount" class="form-label"><b>Discount (%)</b></label>
+          <input type="number" class="form-control" id="discount" formControlName="discount" required>
+          <div *ngIf="saleForm.controls['discount'].invalid && (saleForm.controls['discount'].dirty || saleForm.controls['discount'].touched)" class="text-danger">
+            <div *ngIf="saleForm.controls['discount'].errors?.['required']">Discount is required.</div>
+            <div *ngIf="saleForm.controls['discount'].errors?.['min']">Discount must be greater than or equal to 0.</div>
+            <div *ngIf="saleForm.controls['discount'].errors?.['max']">Discount must be less than or equal to 100.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="totalPrice" class="form-label"><b>Total Price (tk)</b></label>
+          <input type="number" class="form-control" id="totalPrice" formControlName="totalPrice" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="customerName" class="form-label"><b>Customer Name</b></label>
+          <input type="text" class="form-control" id="customerName" formControlName="customerName" required>
+          <div *ngIf="saleForm.controls['customerName'].invalid && (saleForm.controls['customerName'].dirty || saleForm.controls['customerName'].touched)" class="text-danger">
+            Customer Name is required.
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" [disabled]="loading">Update</button>
+          <button type="button" class="btn btn-secondary ms-2" (click)="onCancel()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="!saleId && !loading" class="alert alert-warning">
+    No sale ID provided.
+  </div>
+</div>

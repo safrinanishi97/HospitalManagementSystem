@@ -1,0 +1,19 @@
+/* src/app/components/dashboard/dashboard.component.css */
+.card {
+    transition: transform 0.2s;
+    height: 100%;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  
+  .list-group-item {
+    border-left: 0;
+    border-right: 0;
+  }
+  
+  .list-group-item:first-child {
+    border-top: 0;
+  }

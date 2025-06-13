@@ -1,0 +1,76 @@
+<div class="container mt-4" style="background-color: azure">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary">Doctor List</h2>
+    <a routerLink="/doctors/new" class="btn btn-primary">
+      <i class="bi bi-person-plus-fill"></i> Add Doctor
+    </a>
+  </div>
+
+  <div class="table-responsive shadow-sm" style="background-color: cornsilk">
+    <table class="table table-bordered table-hover align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Email</th>
+          <th scope="col">Department</th>
+          <th scope="col">Specialization</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of doctors">
+          <td class="text-center">
+            <!-- <img
+              *ngIf="doc.imageUrl"
+              [src]="'http://localhost:5068' + doc.imageUrl"
+              alt="Doctor Photo"
+              class="rounded-circle"
+              width="50"
+              height="50"
+              style="object-fit: cover"
+            /> -->
+            <img
+              *ngIf="doc.imageUrl"
+              [src]="'http://localhost:5068' + doc.imageUrl"
+              alt="Doctor Photo"
+              class="rounded shadow-sm border border-secondary me-2 img-hover"
+              width="80"
+              height="80"
+              style="object-fit: cover; transition: transform 0.3s ease"
+            />
+            <div *ngIf="!doc.imageUrl" class="text-muted small">No Image</div>
+          </td>
+          <td>{{ doc.firstName }} {{ doc.lastName }}</td>
+          <td>{{ doc.phone }}</td>
+          <td>{{ doc.email }}</td>
+          <td>{{ doc.departmentName }}</td>
+          <td>{{ doc.specializationName }}</td>
+          <td class="text-center">
+            <div class="btn-group" role="group">
+              <a
+                [routerLink]="['/doctors/edit', doc.doctorId]"
+                class="btn btn-sm btn-warning"
+              >
+                <i class="bi bi-pencil">Edit</i>
+              </a>
+              <a
+                [routerLink]="['/doctors/details', doc.doctorId]"
+                class="btn btn-sm btn-info"
+              >
+                <i class="bi bi-eye"></i> View Details
+              </a>
+              <button
+                (click)="deleteDoctor(doc.doctorId)"
+                class="btn btn-sm btn-danger"
+              >
+                <i class="bi bi-trash">Delete</i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

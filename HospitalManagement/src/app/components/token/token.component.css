@@ -1,0 +1,94 @@
+:root {
+    --bs-primary: #0d3b66;
+    --bs-primary-hover: #092f4c;
+    --bs-accent: #00a896;
+    --bs-danger: #dc3545;
+  }
+  
+  /* Base */
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Card */
+  .card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Card Header */
+  .card-header {
+    background: var(--bs-primary);
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  /* Form elements */
+  .form-label {
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 0.3rem;
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 59, 102, 0.15);
+  }
+  
+  /* Error text */
+  .text-danger {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Submit button */
+  .btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--bs-primary-hover);
+    border-color: var(--bs-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(13, 59, 102, 0.3);
+  }
+  
+  /* Alert messages */
+  .alert {
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
+  
+  /* Animation */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

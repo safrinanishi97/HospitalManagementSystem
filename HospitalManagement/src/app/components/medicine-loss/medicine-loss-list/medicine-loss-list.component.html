@@ -1,0 +1,80 @@
+<div class="container mt-5 medicine-inventory-container">
+  <h2 class="mb-4 medicine-inventory-heading"><i class="bi bi-exclamation-octagon-fill me-2"></i> Medicine Loss Records</h2>
+
+  <div class="d-flex justify-content-end align-items-center mb-3">
+    <a routerLink="/medicine-losses/add" class="add-medicine-button">
+      <i class="bi bi-plus-circle me-2"></i> Add New Loss Entry
+    </a>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  </div>
+
+  <div *ngIf="loading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <strong class="ms-2">Fetching Loss Data...</strong>
+  </div>
+
+  <div *ngIf="medicineLosses.length > 0; else noLosses" class="card medicine-card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered medicine-table">
+          <thead class="table-info">
+            <tr>
+              <th>SL No</th>
+              <th>Medicine</th>
+              <th>Loss Date</th>
+              <th>Reason</th>
+              <th class="text-end">Quantity Loss</th>
+              <th class="text-end">Loss/Unit</th>
+              <th class="text-end">Total Loss</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let loss of medicineLosses; let i = index" class="hover-row">
+              <td>{{ i + 1 }}</td>
+              <td>{{ getMedicineName(loss) }}</td>
+              <td>{{ loss.lossDate | date: 'mediumDate' }}</td>
+              <td>{{ loss.lossReason }}</td>
+              <td class="text-end">{{ loss.quantityLoss }}</td>
+              <td class="text-end">{{ loss.lossAmount | number: '0.0-0' }}tk</td>
+              <td class="text-end">{{ loss.totalLoss | number: '0.0-0' }}tk</td>
+              <td class="text-center actions-cell">
+                <div class="btn-group" role="group">
+                  <a
+                    [routerLink]="['/medicine-losses/detail', loss.medicineLossId]"
+                    class="action-button details-button"
+                    title="View Details"
+                  >
+                    <i class="bi bi-eye-fill me-1"></i> Details
+                  </a>
+                  <a
+                    [routerLink]="['/medicine-losses/edit', loss.medicineLossId]"
+                    class="action-button edit-button ms-2"
+                    title="Edit Loss Entry"
+                  >
+                    <i class="bi bi-pencil-square me-1"></i> Edit
+                  </a>
+                  <button
+                    (click)="deleteMedicineLoss(loss.medicineLossId)"
+                    class="action-button delete-button ms-2"
+                    title="Delete Loss Entry"
+                  >
+                    <i class="bi bi-trash-fill me-1"></i> Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noLosses>
+    <div class="no-medicines-message">
+      <i class="bi bi-info-circle-fill me-2"></i> No medicine loss entries found.
+    </div>
+  </ng-template>
+</div>

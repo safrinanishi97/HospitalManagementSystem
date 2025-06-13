@@ -1,0 +1,90 @@
+<div class="container py-4 fade-in">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <!-- Top Success Notification -->
+                    <div *ngIf="successMessage"
+                        class="alert alert-success alert-dismissible fade show text-center mb-4 animate-slide-top"
+                        role="alert">
+                        <strong>✅ {{ successMessage }}</strong>
+                    </div>
+                    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center fade-in">
+                        {{ errorMessage }}
+                    </div>
+
+                    <h4 class="mb-0">🎟 Generate New Token</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="tokenForm" (ngSubmit)="onSubmit()">
+
+                        <!-- Patient Dropdown -->
+                        <div class="mb-3">
+                            <label for="patientId" class="form-label">Patient</label>
+                            <select formControlName="patientId" id="patientId" class="form-select">
+                                <option [value]="null">-- Select Patient --</option>
+                                <option *ngFor="let patient of patients" [value]="patient.patientId">
+                                    {{ patient.firstName }} {{ patient.lastName }}
+                                </option>
+                            </select>
+                            <div *ngIf="tokenForm.get('patientId')?.invalid && tokenForm.get('patientId')?.touched"
+                                class="text-danger">
+                                Patient is required.
+                            </div>
+                        </div>
+
+                        <!-- Doctor Dropdown -->
+                        <div class="mb-3">
+                            <label for="doctorId" class="form-label">Doctor</label>
+                            <select formControlName="doctorId" id="doctorId" class="form-select">
+                                <option [value]="null">-- Select Doctor --</option>
+                                <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
+                                    Dr. {{ doctor.firstName }} {{ doctor.lastName }}
+                                </option>
+                            </select>
+                            <div *ngIf="tokenForm.get('doctorId')?.invalid && tokenForm.get('doctorId')?.touched"
+                                class="text-danger">
+                                Doctor is required.
+                            </div>
+                        </div>
+
+                        <!-- Chamber Dropdown -->
+                        <div class="mb-3">
+                            <label for="chamberId" class="form-label">Chamber</label>
+                            <select formControlName="chamberId" id="chamberId" class="form-select">
+                                <option [value]="null">-- Select Chamber --</option>
+                                <option *ngFor="let chamber of chambers" [value]="chamber.chamberId">
+                                    {{ chamber.chamberNo }} - {{ chamber.location }}
+                                </option>
+                            </select>
+                            <div *ngIf="tokenForm.get('chamberId')?.invalid && tokenForm.get('chamberId')?.touched"
+                                class="text-danger">
+                                Chamber is required.
+                            </div>
+                        </div>
+
+                        <!-- Token Fee Input -->
+                        <div class="mb-3">
+                            <label for="tokenFee" class="form-label">Token Fee</label>
+                            <input type="number" formControlName="tokenFee" id="tokenFee" class="form-control"
+                                placeholder="Enter fee" />
+                            <div *ngIf="tokenForm.get('tokenFee')?.invalid && tokenForm.get('tokenFee')?.touched"
+                                class="text-danger">
+                                Valid token fee is required.
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" [disabled]="tokenForm.invalid">
+                                Generate Token
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

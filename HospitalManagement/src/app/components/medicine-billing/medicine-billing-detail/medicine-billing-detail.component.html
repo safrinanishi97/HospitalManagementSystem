@@ -1,0 +1,45 @@
+<h2>Medicine Billing Details</h2>
+
+<div *ngIf="medicineBilling">
+  <p><strong>Bill No:</strong> {{ medicineBilling.billNo }}</p>
+  <p><strong>Patient:</strong> {{ medicineBilling.patient?.firstName }}</p>
+  <p><strong>Ref By:</strong> {{ medicineBilling.refBy }}</p>
+  <p><strong>Total Amount:</strong> {{ medicineBilling.totalAmount }}</p>
+  <p><strong>Discount Amount:</strong> {{ medicineBilling.discountAmount }}</p>
+  <p>
+    <strong>Discount Percentage:</strong>
+    {{ medicineBilling.discountPercentage }}
+  </p>
+  <p><strong>Payable Amount:</strong> {{ medicineBilling.payableAmount }}</p>
+  <p><strong>Due Amount:</strong> {{ medicineBilling.dueAmount }}</p>
+  <p><strong>Paid Amount:</strong> {{ medicineBilling.paidAmount }}</p>
+  <p>
+    <strong>Delivery Date:</strong> {{ medicineBilling.deliveryDate | date }}
+  </p>
+  <p><strong>Delivery Time:</strong> {{ medicineBilling.deliveryTime }}</p>
+  <p><strong>Created At:</strong> {{ medicineBilling.createdAt | date }}</p>
+
+  <h3>Medicine Details</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let detail of medicineBilling.medicineBillingDetails">
+        <td>{{ detail.medicineBill?.medicineName }}</td>
+        <td>{{ detail.price }}</td>
+        <td>{{ detail.quantity }}</td>
+        <td>{{ detail.totalPrice }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!medicineBilling">
+  <p>Loading details...</p>
+</div>

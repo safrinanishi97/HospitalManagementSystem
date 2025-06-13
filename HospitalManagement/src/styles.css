@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+body {
+    padding-top: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  
+  .card-header {
+    font-weight: 500;
+  }
+  
+  .table th {
+    white-space: nowrap;
+  }
+  
+  .btn-sm {
+    min-width: 70px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .btn-group {
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .btn-sm {
+      width: 100%;
+    }
+  }

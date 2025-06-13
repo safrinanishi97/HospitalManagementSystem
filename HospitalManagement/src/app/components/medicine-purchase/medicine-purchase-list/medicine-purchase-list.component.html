@@ -1,0 +1,75 @@
+<div class="container mt-5 medicine-inventory-container">
+  <h2 class="mb-4 medicine-inventory-heading"><i class="bi bi-clock-history me-2"></i> Medicine Purchase History</h2>
+
+  <div class="d-flex justify-content-end align-items-center mb-3">
+    <a routerLink="/medicine-purchases/add" class="add-medicine-button">
+      <i class="bi bi-plus-circle me-2"></i> Add New Purchase
+    </a>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </div>
+
+  <div *ngIf="medicinePurchases.length > 0; else noPurchases" class="card medicine-card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered medicine-table">
+          <thead class="table-info">
+            <tr>
+              <th>SL No</th>
+              <th>Medicine</th>
+              <th>Purchase Date</th>
+              <th class="text-end">Unit Price</th>
+              <th class="text-center">Quantity</th>
+              <th class="text-end">VAT</th>
+              <th class="text-end">Total Price</th>
+              <th>Supplier</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let purchase of medicinePurchases; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ getMedicineName(purchase.medicineId) }}</td>
+              <td>{{ purchase.purchaseDate | date }}</td>
+              <td class="text-end">{{ purchase.purchasePrice }}tk</td>
+              <td class="text-center">{{ purchase.quantityPurchased }}</td>
+              <td class="text-end">{{ purchase.vat }}%</td>
+              <td class="text-end">{{ purchase.totalPrice }}tk</td>
+              <td>{{ purchase.supplier }}</td>
+              <td class="text-center actions-cell">
+                <div class="btn-group" role="group">
+                  <a
+                    [routerLink]="['/medicine-purchases/detail', purchase.medicinePurchaseId]"
+                    class="action-button details-button"
+                    title="View Details"
+                  >
+                    <i class="bi bi-eye-fill me-1"></i> Details
+                  </a>
+                  <a
+                    [routerLink]="['/medicine-purchases/edit', purchase.medicinePurchaseId]"
+                    class="action-button edit-button ms-2"
+                    title="Edit Purchase"
+                  >
+                    <i class="bi bi-pencil-square me-1"></i> Edit
+                  </a>
+                  <button
+                    (click)="deleteMedicinePurchase(purchase.medicinePurchaseId)"
+                    class="action-button delete-button ms-2"
+                    title="Delete Purchase"
+                  >
+                    <i class="bi bi-trash-fill me-1"></i> Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noPurchases>
+    <div class="no-medicines-message">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> No purchase history available.
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,502 @@
+<div class="container mt-4">
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+<!-- <pre>{{ formData | json }}</pre> -->
+ <form *ngIf="isDataLoaded" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Prescription Information</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Prescription No</label>
+              <input type="text" class="form-control" formControlName="prescriptionNo" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Date</label>
+              <input type="datetime-local" class="form-control" formControlName="prescriptionDate">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Doctor</label>
+                  <select class="form-select" formControlName="doctorId">
+  <option value="">Select Doctor</option>
+  <option *ngFor="let doctor of formData.doctors" 
+          [value]="doctor.value">
+    {{ doctor.label }}
+  </option>
+</select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Token No</label>
+              <select class="form-select" formControlName="tokenId">
+  <option value="">Select Token</option>
+  <option *ngFor="let token of formData.tokens" 
+          [value]="token.value">
+    {{ token.label }}
+  </option>
+</select>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Next Visit Date</label>
+          <input type="date" class="form-control" formControlName="nextVisitDate">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Assessment</label>
+          <textarea class="form-control" formControlName="assessment" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medicines Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Medicines</h5>
+        <button type="button" class="btn btn-light btn-sm" (click)="addMedicine()">
+          <i class="bi bi-plus"></i> Add Medicine
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="prescriptionMedicines">
+          <div *ngFor="let med of medicineControls.controls; let i = index" [formGroupName]="i" class="mb-3 border p-3">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Medicine</label>
+              <select class="form-select" formControlName="medicineId">
+  <option value="">Select Medicine</option>
+  <option *ngFor="let medicine of formData.medicines" 
+          [value]="medicine.value">
+    {{ medicine.label }}
+  </option>
+</select>
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Dosage</label>
+                <input type="text" class="form-control" formControlName="dosage" placeholder="e.g. 500mg">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Frequency</label>
+                <input type="text" class="form-control" formControlName="frequency" placeholder="e.g. Twice daily">
+              </div>
+              <div class="col-md-2">
+                <label class="form-label">Duration</label>
+                <input type="text" class="form-control" formControlName="duration" placeholder="e.g. 7 days">
+              </div>
+              <div class="col-md-2 d-flex align-items-end">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeMedicine(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tests Section -->
+<!-- Tests Section -->
+<div class="card mb-4">
+  <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Tests</h5>
+    <button type="button" class="btn btn-light btn-sm" (click)="addTest()">
+      <i class="bi bi-plus"></i> Add Test
+    </button>
+  </div>
+  <div class="card-body">
+    <div formArrayName="prescriptionTests">
+      <div *ngFor="let test of testControls.controls; let i = index" [formGroupName]="i" class="mb-3">
+        <div class="row">
+          <div class="col-md-10">
+           <select class="form-select" formControlName="testId">
+  <option value="">Select Test</option>
+  <option *ngFor="let test of formData.tests" 
+          [value]="test.value">
+    {{ test.label }}
+  </option>
+</select>
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeTest(i)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Diagnosis Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Diagnosis</h5>
+        <button type="button" class="btn btn-light btn-sm" (click)="addDiagnosis()">
+          <i class="bi bi-plus"></i> Add Diagnosis
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="prescriptionDiagnoses">
+          <div *ngFor="let diag of diagnosisControls.controls; let i = index" [formGroupName]="i" class="mb-3">
+            <div class="row">
+              <div class="col-md-5">
+              <select class="form-select" (change)="onDiagnosisSelect(i, $event)">
+                <option value="">-- Select Diagnosis --</option>
+                <option *ngFor="let d of suggestions.diagnoses" [value]="d">{{ d }}</option>
+              </select>
+            </div>
+              <div class="col-md-5">
+                <input type="text" class="form-control" formControlName="diagnosisTitle" placeholder="Enter diagnosis">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeDiagnosis(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Symptoms Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Physical Symptoms</h5>
+        <button type="button" class="btn btn-light btn-sm" (click)="addSymptom()">
+          <i class="bi bi-plus"></i> Add Symptom
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="physicalSymptoms">
+          <div *ngFor="let symptom of symptomControls.controls; let i = index" [formGroupName]="i" class="mb-3">
+            <div class="row">
+
+            <div class="col-md-5">
+               <select class="form-select" (change)="onSymptomSelect(i, $event)">
+                <option value="">-- Select Symptom --</option>
+                <option *ngFor="let s of suggestions.symptoms" [value]="s">{{ s }}</option>
+               </select>
+            </div>
+
+
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="symptomDescription" placeholder="Enter symptom">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeSymptom(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advice Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Advice</h5>
+        <button type="button" class="btn btn-light btn-sm" (click)="addAdvice()">
+          <i class="bi bi-plus"></i> Add Advice
+        </button>
+      </div>
+      <div class="card-body">
+        <div formArrayName="prescriptionAdvices">
+          <div *ngFor="let advice of adviceControls.controls; let i = index" [formGroupName]="i" class="mb-3">
+            <div class="row">
+         <div class="col-md-5">
+      <select class="form-select" (change)="onAdviceSelect(i, $event)">
+
+        <option value="">-- Select Advice --</option>
+        <option *ngFor="let a of suggestions.advices" [value]="a">{{ a }}</option>
+      </select>
+    </div>
+
+
+
+              <div class="col-md-5">
+                <input type="text" class="form-control" formControlName="advice" placeholder="Enter advice">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeAdvice(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/prescriptions'])">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+        <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ isEditMode ? 'Update' : 'Save' }} Prescription
+      </button>
+    </div>
+    
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit' : 'Create' }} Prescription</h2>
+  
+    <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Basic Information</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Doctor</label>
+                <select class="form-select" formControlName="doctorId">
+                  <option value="">Select Doctor</option>
+                  <option *ngFor="let doctor of (formData?.doctors || [])" [value]="doctor.value">
+                    {{ doctor.label }}
+                  </option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Token Number</label>
+                <select class="form-select" formControlName="tokenId">
+                  <option value="">Select Token</option>
+                  <option *ngFor="let token of (formData?.tokens || [])" [value]="token.value">
+                    {{ token.label }}
+                  </option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Prescription Date</label>
+                <input type="date" class="form-control" formControlName="prescriptionDate">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Next Visit Date</label>
+                <input type="date" class="form-control" formControlName="nextVisitDate">
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Assessment</label>
+            <textarea class="form-control" formControlName="assessment" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span>Medicines</span>
+          <button type="button" class="btn btn-sm btn-light" (click)="addMedicine()">
+            <i class="bi bi-plus"></i> Add Medicine
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="prescriptionMedicines">
+            <div *ngFor="let med of medicines.controls; let i = index" [formGroupName]="i" class="mb-3 p-2 border rounded">
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <label class="form-label">Medicine</label>
+                  <select class="form-select" formControlName="medicineId">
+                    <option value="">Select Medicine</option>
+                    <option *ngFor="let med of (formData?.medicines || [])" [value]="med.value">
+                      {{ med.label }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Dosage</label>
+                  <input type="text" class="form-control" formControlName="dosage" placeholder="e.g. 500mg">
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Frequency</label>
+                  <input type="text" class="form-control" formControlName="frequency" placeholder="e.g. 2x daily">
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Duration</label>
+                  <input type="text" class="form-control" formControlName="duration" placeholder="e.g. 7 days">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeMedicine(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="medicines.length === 0" class="alert alert-info mb-0">
+            No medicines added
+          </div>
+        </div>
+      </div>
+  
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span>Tests</span>
+          <button type="button" class="btn btn-sm btn-light" (click)="addTest()">
+            <i class="bi bi-plus"></i> Add Test
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="prescriptionTests">
+            <div *ngFor="let test of tests.controls; let i = index" [formGroupName]="i" class="mb-3 p-2 border rounded">
+              <div class="row g-2">
+                <div class="col-md-10">
+                  <label class="form-label">Test</label>
+                  <select class="form-select" formControlName="testId">
+                    <option value="">Select Test</option>
+                    <option *ngFor="let test of (formData?.tests || [])" [value]="test.value">
+                      {{ test.label }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeTest(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="tests.length === 0" class="alert alert-info mb-0">
+            No tests added
+          </div>
+        </div>
+      </div>
+  
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span>Diagnoses</span>
+          <button type="button" class="btn btn-sm btn-light" (click)="addDiagnosis()">
+            <i class="bi bi-plus"></i> Add Diagnosis
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="prescriptionDiagnosises">
+            <div *ngFor="let diag of diagnoses.controls; let i = index" [formGroupName]="i" class="mb-3 p-2 border rounded">
+              <div class="row g-2">
+                <div class="col-md-10">
+                  <label class="form-label">Diagnosis</label>
+                  <input type="text" class="form-control" formControlName="diagnosisTitle" placeholder="Enter diagnosis">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeDiagnosis(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="diagnoses.length === 0" class="alert alert-info mb-0">
+            No diagnoses added
+          </div>
+        </div>
+      </div>
+  
+    
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span>Symptoms</span>
+          <button type="button" class="btn btn-sm btn-light" (click)="addSymptom()">
+            <i class="bi bi-plus"></i> Add Symptom
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="physicalSymptoms">
+            <div *ngFor="let symptom of symptoms.controls; let i = index" [formGroupName]="i" class="mb-3 p-2 border rounded">
+              <div class="row g-2">
+                <div class="col-md-10">
+                  <label class="form-label">Symptom Description</label>
+                  <input type="text" class="form-control" formControlName="symptomDescription" placeholder="Describe symptom">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeSymptom(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="symptoms.length === 0" class="alert alert-info mb-0">
+            No symptoms added
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <span>Advice</span>
+          <button type="button" class="btn btn-sm btn-light" (click)="addAdvice()">
+            <i class="bi bi-plus"></i> Add Advice
+          </button>
+        </div>
+        <div class="card-body">
+          <div formArrayName="prescriptionAdvices">
+            <div *ngFor="let advice of advices.controls; let i = index" [formGroupName]="i" class="mb-3 p-2 border rounded">
+              <div class="row g-2">
+                <div class="col-md-10">
+                  <label class="form-label">Advice</label>
+                  <textarea class="form-control" formControlName="advice" rows="2" placeholder="Enter advice"></textarea>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeAdvice(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="advices.length === 0" class="alert alert-info mb-0">
+            No advice added
+          </div>
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          <i class="bi bi-x-circle"></i> Cancel
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="prescriptionForm.invalid">
+          <i class="bi bi-save"></i> {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+      </div>
+    </form>
+  </div> -->

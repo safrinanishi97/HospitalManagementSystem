@@ -1,0 +1,170 @@
+<form [formGroup]="admissionForm" (ngSubmit)="submitForm()">
+  <!-- Patient Dropdown -->
+  <div class="mb-3">
+    <label for="patientId" class="form-label">Patient</label>
+    <select formControlName="patientId" id="patientId" class="form-select">
+      <option value="">-- Select Patient --</option>
+      <option *ngFor="let patient of patients" [value]="patient.patientId">
+        {{ patient.firstName }} {{ patient.lastName }}
+      </option>
+    </select>
+    <div
+      *ngIf="
+        admissionForm.get('patientId')?.touched &&
+        admissionForm.get('patientId')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Patient is required.
+    </div>
+  </div>
+
+  <!-- Doctor Dropdown -->
+  <div class="mb-3">
+    <label for="doctorId" class="form-label">Doctor</label>
+    <select formControlName="doctorId" id="doctorId" class="form-select">
+      <option value="">-- Select Doctor --</option>
+      <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">
+        {{ doctor.firstName }} {{ doctor.lastName }}
+      </option>
+    </select>
+    <div
+      *ngIf="
+        admissionForm.get('doctorId')?.touched &&
+        admissionForm.get('doctorId')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Doctor is required.
+    </div>
+  </div>
+
+  <!-- Bed Dropdown -->
+  <div class="mb-3">
+    <label for="bedId" class="form-label">Bed</label>
+    <select formControlName="bedId" id="bedId" class="form-select">
+      <option value="">-- Select Bed --</option>
+      <option *ngFor="let bed of beds" [value]="bed.bedId">
+        {{ bed.info }}
+      </option>
+    </select>
+    <div
+      *ngIf="
+        admissionForm.get('bedId')?.touched &&
+        admissionForm.get('bedId')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Bed is required.
+    </div>
+  </div>
+
+  <!-- Admission Date -->
+  <div class="mb-3">
+    <label for="admissionDate" class="form-label">Admission Date</label>
+    <input
+      type="date"
+      formControlName="admissionDate"
+      id="admissionDate"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        admissionForm.get('admissionDate')?.touched &&
+        admissionForm.get('admissionDate')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Admission date is required.
+    </div>
+  </div>
+
+  <!-- Discharge Date -->
+  <div class="mb-3">
+    <label for="dischargeDate" class="form-label">Discharge Date</label>
+    <input
+      type="date"
+      formControlName="dischargeDate"
+      id="dischargeDate"
+      class="form-control"
+    />
+  </div>
+
+  <!-- Nurse Name -->
+  <div class="mb-3">
+    <label for="nurseName" class="form-label">Nurse Name</label>
+    <input
+      type="text"
+      formControlName="nurseName"
+      id="nurseName"
+      class="form-control"
+    />
+  </div>
+
+  <!-- Referred By -->
+  <div class="mb-3">
+    <label for="referredBy" class="form-label">Referred By</label>
+    <input
+      type="text"
+      formControlName="referredBy"
+      id="referredBy"
+      class="form-control"
+    />
+  </div>
+
+  <!-- Floor -->
+  <div class="mb-3">
+    <label for="floor" class="form-label">Floor</label>
+    <input
+      type="text"
+      formControlName="floor"
+      id="floor"
+      class="form-control"
+    />
+  </div>
+
+  <!-- Charge Per Day -->
+  <div class="mb-3">
+    <label for="chargePerDay" class="form-label">Charge Per Day</label>
+    <input
+      type="number"
+      formControlName="chargePerDay"
+      id="chargePerDay"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        admissionForm.get('chargePerDay')?.touched &&
+        admissionForm.get('chargePerDay')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Charge per day is required.
+    </div>
+  </div>
+
+  <!-- Admission Fee -->
+  <div class="mb-3">
+    <label for="admissionFee" class="form-label">Admission Fee</label>
+    <input
+      type="number"
+      formControlName="admissionFee"
+      id="admissionFee"
+      class="form-control"
+    />
+    <div
+      *ngIf="
+        admissionForm.get('admissionFee')?.touched &&
+        admissionForm.get('admissionFee')?.invalid
+      "
+      class="invalid-feedback"
+    >
+      Admission fee is required.
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">
+    {{ isEditMode ? "Update Admission" : "Add Admission" }}
+  </button>
+</form>

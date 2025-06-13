@@ -1,0 +1,17 @@
+/* src/app/components/test-list/test-list.component.css */
+.table {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+  
+  .table th {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .btn-group .btn {
+    margin-right: 5px;
+  }
+  
+  .btn-group .btn:last-child {
+    margin-right: 0;
+  }

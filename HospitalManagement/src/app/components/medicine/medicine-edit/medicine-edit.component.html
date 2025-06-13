@@ -1,0 +1,40 @@
+<div class="container mt-5">
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="loading" class="alert alert-info">Loading medicine for editing...</div>
+
+  <div class="card shadow-sm border-success" *ngIf="medicine && !loading">
+    <div class="card-header bg-success text-white py-3">
+      <h5 class="mb-0">Edit Medicine</h5>
+    </div>
+    <div class="card-body p-4">
+      <form (ngSubmit)="updateMedicine()">
+        <div class="mb-3">
+          <label for="medicineType" class="form-label"><b>Medicine Type:</b></label>
+          <input type="text" class="form-control" id="medicineType" name="medicineType" [(ngModel)]="medicine.medicineType" required>
+        </div>
+        <div class="mb-3">
+          <label for="medicineName" class="form-label"><b>Medicine Name:</b></label>
+          <input type="text" class="form-control" id="medicineName" name="medicineName" [(ngModel)]="medicine.medicineName" required>
+        </div>
+        <div class="mb-3">
+          <label for="genericName" class="form-label"><b>Generic Name:</b></label>
+          <input type="text" class="form-control" id="genericName" name="genericName" [(ngModel)]="medicine.genericName">
+        </div>
+        <div class="mb-3">
+          <label for="company" class="form-label"><b>Company:</b></label>
+          <input type="text" class="form-control" id="company" name="company" [(ngModel)]="medicine.company">
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Update</button>
+          <button type="button" (click)="cancel()" class="btn btn-secondary ms-2">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="!medicineId && !loading" class="alert alert-warning">
+    No medicine ID provided.
+  </div>
+</div>

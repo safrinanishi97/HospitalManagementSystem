@@ -1,0 +1,75 @@
+<!-- src/app/components/dashboard/dashboard.component.html -->
+<div class="container-fluid mt-3">
+  <h2 class="mb-4">Dashboard Overview</h2>
+
+  <!-- কার্ড সেকশন -->
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3" *ngFor="let card of cards">
+      <div class="card text-white {{card.color}}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="card-title">{{card.title}}</h6>
+              <h2 class="card-text">{{card.value}}</h2>
+            </div>
+            <i class="fas {{card.icon}} fa-3x"></i>
+          </div>
+          <a [routerLink]="card.route" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- রিসেন্ট অ্যাক্টিভিটি -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Recent Activities</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let activity of recentActivities">
+              <div class="d-flex justify-content-between">
+                <span>{{activity.action}}</span>
+                <small class="text-muted">{{activity.time}} by {{activity.user}}</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- কুইক অ্যাকশনস -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <a routerLink="/patients/new" class="btn btn-info">
+              <i class="fas fa-calendar-plus me-2"></i> Schedule TestReport
+            </a>
+            <a routerLink="/doctors/new" class="btn btn-info">
+              <i class="fas fa-calendar-plus me-2"></i> Schedule TestReport
+            </a>
+            <a routerLink="/tests/create" class="btn btn-primary">
+              <i class="fas fa-plus me-2"></i> Create New Test
+            </a>
+            <a routerLink="/prescriptions/create" class="btn btn-success">
+              <i class="fas fa-file-medical me-2"></i> New Prescription
+            </a>
+            <a routerLink="/testReport" class="btn btn-info">
+              <i class="fas fa-calendar-plus me-2"></i> Schedule TestReport
+            </a>
+            <a routerLink="/billings" class="btn btn-info">
+              <i class="fas fa-calendar-plus me-2"></i> Schedule TestReport
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

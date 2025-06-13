@@ -1,0 +1,184 @@
+<h2>Create New Medicine Billing</h2>
+<form [formGroup]="billingForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="billNo" class="form-label">Bill No:</label>
+    <input
+      type="text"
+      id="billNo"
+      class="form-control"
+      formControlName="billNo"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="patientId" class="form-label">Patient:</label>
+    <select
+      id="patientId"
+      class="form-select"
+      formControlName="patientId"
+      required
+    >
+      <option [ngValue]="null" disabled>Select Patient</option>
+      <option *ngFor="let patient of patients" [ngValue]="patient.patientId">
+        {{ patient.firstName }}
+      </option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="refBy" class="form-label">Referred By:</label>
+    <input
+      type="text"
+      id="refBy"
+      class="form-control"
+      formControlName="refBy"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="deliveryDate" class="form-label">Delivery Date:</label>
+    <input
+      type="date"
+      id="deliveryDate"
+      class="form-control"
+      formControlName="deliveryDate"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="deliveryTime" class="form-label">Delivery Time:</label>
+    <input
+      type="time"
+      id="deliveryTime"
+      class="form-control"
+      formControlName="deliveryTime"
+    />
+  </div>
+
+  <h3>Medicine Details</h3>
+  <div formArrayName="medicineBillingDetails">
+    <div
+      *ngFor="let detail of medicineBillingDetails().controls; let i = index"
+      [formGroupName]="i"
+      class="mb-3 border p-3"
+    >
+      <h4>Medicine Item #{{ i + 1 }}</h4>
+      <div class="mb-2">
+        <label for="medicineBillId{{ i }}" class="form-label">Medicine:</label>
+        <select
+          id="medicineBillId{{ i }}"
+          class="form-select"
+          formControlName="medicineBillId"
+          (change)="onMedicineChange(i)"
+          required
+        >
+          <option [ngValue]="null" disabled>Select Medicine</option>
+          <option
+            *ngFor="let medicine of medicineBills"
+            [ngValue]="medicine.medicineBillId"
+          >
+            {{ medicine.medicineName }} (Price: {{ medicine.price }})
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-2">
+        <label for="price{{ i }}" class="form-label">Price:</label>
+        <input
+          type="number"
+          id="price{{ i }}"
+          class="form-control"
+          formControlName="price"
+          readonly
+        />
+      </div>
+
+      <div class="mb-2">
+        <label for="quantity{{ i }}" class="form-label">Quantity:</label>
+        <input
+          type="number"
+          id="quantity{{ i }}"
+          class="form-control"
+          formControlName="quantity"
+          (change)="onQuantityChange(i)"
+          required
+        />
+      </div>
+
+      <div class="mb-2">
+        <label for="totalPrice{{ i }}" class="form-label">Total Price:</label>
+        <input
+          type="number"
+          id="totalPrice{{ i }}"
+          class="form-control"
+          formControlName="totalPrice"
+          readonly
+        />
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-danger btn-sm"
+        (click)="removeMedicineDetail(i)"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="btn btn-success mb-3"
+    (click)="addMedicineDetail()"
+  >
+    Add Medicine
+  </button>
+
+  <div class="mb-3">
+    <label for="discountAmount" class="form-label">Discount Amount:</label>
+    <input
+      type="number"
+      id="discountAmount"
+      class="form-control"
+      formControlName="discountAmount"
+      (change)="calculateTotalAmount()"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="discountPercentage" class="form-label"
+      >Discount Percentage:</label
+    >
+    <input
+      type="number"
+      id="discountPercentage"
+      class="form-control"
+      formControlName="discountPercentage"
+      (change)="calculateTotalAmount()"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="totalAmount" class="form-label">Total Amount:</label>
+    <input
+      type="number"
+      id="totalAmount"
+      class="form-control"
+      formControlName="totalAmount"
+      readonly
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="paidAmount" class="form-label">Paid Amount:</label>
+    <input
+      type="number"
+      id="paidAmount"
+      class="form-control"
+      formControlName="paidAmount"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Create Billing</button>
+</form>

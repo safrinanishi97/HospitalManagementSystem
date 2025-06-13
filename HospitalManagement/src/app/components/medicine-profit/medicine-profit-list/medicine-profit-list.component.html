@@ -1,0 +1,77 @@
+<div class="container mt-5 medicine-inventory-container">
+  <h2 class="mb-4 medicine-inventory-heading"><i class="bi bi-graph-up me-2"></i> Medicine Profit Analysis</h2>
+
+  <div class="d-flex justify-content-end align-items-center mb-3">
+    <a routerLink="/medicine-profits/add" class="add-medicine-button">
+      <i class="bi bi-plus-circle me-2"></i> Add New Profit Entry
+    </a>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  </div>
+
+  <div *ngIf="loading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <strong class="ms-2">Fetching Profit Data...</strong>
+  </div>
+
+  <div *ngIf="medicineProfits.length > 0; else noProfits" class="card medicine-card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered medicine-table">
+          <thead class="table-info">
+            <tr>
+              <th>SL No</th>
+              <th>Medicine</th>
+              <th>Profit Date</th>
+              <th class="text-end">Profit/Unit</th>
+              <th class="text-end">Quantity</th>
+              <th class="text-end">Total Profit</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let profit of medicineProfits; let i = index" class="hover-row">
+              <td>{{ i + 1 }}</td>
+              <td>{{ getMedicineName(profit) }}</td>
+              <td>{{ formatDate(profit.profitDate) }}</td>
+              <td class="text-end">{{ profit.profitAmount }}tk</td>
+              <td class="text-end">{{ profit.quantityProfit }}</td>
+              <td class="text-end">{{ profit.profitAmount * profit.quantityProfit }}tk</td> <td class="text-center actions-cell">
+                <div class="btn-group" role="group">
+                  <a
+                    [routerLink]="['/medicine-profits/detail', profit.medicineProfitId]"
+                    class="action-button details-button"
+                    title="View Details"
+                  >
+                    <i class="bi bi-eye-fill me-1"></i> Details
+                  </a>
+                  <a
+                    [routerLink]="['/medicine-profits/edit', profit.medicineProfitId]"
+                    class="action-button edit-button ms-2"
+                    title="Edit Profit Entry"
+                  >
+                    <i class="bi bi-pencil-square me-1"></i> Edit
+                  </a>
+                  <button
+                    (click)="deleteMedicineProfit(profit.medicineProfitId)"
+                    class="action-button delete-button ms-2"
+                    title="Delete Profit Entry"
+                  >
+                    <i class="bi bi-trash-fill me-1"></i> Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noProfits>
+    <div class="no-medicines-message">
+      <i class="bi bi-info-circle-fill me-2"></i> No medicine profit entries found.
+    </div>
+  </ng-template>
+</div>

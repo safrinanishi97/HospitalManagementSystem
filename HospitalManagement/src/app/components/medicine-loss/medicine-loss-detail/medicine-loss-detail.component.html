@@ -1,0 +1,94 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg border-success">
+          <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0"><i class="bi bi-x-octagon-fill me-2"></i> Medicine Loss Details</h2>
+            <span *ngIf="medicineLoss" class="badge bg-light text-dark fs-6">
+              <i class="bi bi-calendar-event-fill me-1"></i> {{ medicineLoss.lossDate | date: 'mediumDate' }}
+            </span>
+          </div>
+          <div class="card-body p-4">
+            <div *ngIf="loading" class="d-flex justify-content-center">
+              <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+  
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+            </div>
+  
+            <div *ngIf="medicineLoss && medicinePurchase && !loading && !error">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <h4 class="text-muted mb-3"><i class="bi bi-info-circle-fill me-2"></i> Loss Information</h4>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-key-fill me-2"></i> Loss ID:</div>
+                    <div class="col-6"><span class="badge bg-secondary">{{ medicineLoss.medicineLossId }}</span></div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-capsule-fill me-2"></i> Medicine Name:</div>
+                    <div class="col-6">{{ medicineName }}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-calendar-event-fill me-2"></i> Loss Date:</div>
+                    <div class="col-6">{{ medicineLoss.lossDate | date: 'mediumDate' }}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-arrow-down-square-fill me-2"></i> Quantity Loss:</div>
+                    <div class="col-6">{{ medicineLoss.quantityLoss }}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-currency-dollar me-2"></i> Loss/Unit:</div>
+                    <div class="col-6">{{ medicineLoss.lossAmount }}tk</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-stack me-2"></i> Total Loss:</div>
+                    <div class="col-6">{{ medicineLoss.totalLoss }}tk</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-chat-left-text-fill me-2"></i> Loss Reason:</div>
+                    <div class="col-6">{{ medicineLoss.lossReason }}</div>
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <h4 class="text-muted mb-3"><i class="bi bi-box-seam-fill me-2"></i> Purchase Details</h4>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-receipt me-2"></i> Purchase ID:</div>
+                    <div class="col-6"><span class="badge bg-success">{{ medicinePurchase.medicinePurchaseId }}</span></div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-shop me-2"></i> Supplier:</div>
+                    <div class="col-6">{{ medicinePurchase.supplier }}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-calendar-check me-2"></i> Purchase Date:</div>
+                    <div class="col-6">{{ medicinePurchase.purchaseDate | date: 'mediumDate' }}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-box-seam me-2"></i> Quantity Purchased:</div>
+                    <div class="col-6">{{ medicinePurchase.quantityPurchased }} units</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-6 fw-bold text-secondary"><i class="bi bi-cash-coin me-2"></i> Purchase Price:</div>
+                    <div class="col-6">{{ medicinePurchase.purchasePrice }}tk</div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="mt-4 d-flex justify-content-end gap-2">
+                <a [routerLink]="['/medicine-losses/edit', medicineLoss.medicineLossId]" class="btn btn-warning">
+                  <i class="bi bi-pencil-square-fill me-2"></i> Edit
+                </a>
+                <a routerLink="/medicine-losses" class="btn btn-secondary">
+                  <i class="bi bi-arrow-left-circle-fill me-2"></i> Back
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,81 @@
+<div class="container mt-5 medicine-sales-container">
+  <h2 class="mb-4 medicine-sales-heading"><i class="bi bi-cart-fill me-2"></i> Medicine Sales List</h2>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div></div> <a routerLink="/medicine-sales/add" class="add-sale-button">
+      <i class="bi bi-plus-circle me-2"></i> Add New Sale
+    </a>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading sales data...</p>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="medicineSales.length === 0" class="no-sales-message">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i> No medicine sales found.
+    </div>
+
+    <div *ngIf="medicineSales.length > 0" class="card sales-card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered sales-table">
+            <thead class="table-info">
+              <tr>
+                <th>SL No</th>
+                <th>Medicine</th>
+                <th>Sale Date</th>
+                <th class="text-end">Unit Price</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Discount</th>
+                <th class="text-end">Total Price</th>
+                <th>Customer</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sale of medicineSales; let i = index" class="hover-row">
+                <td>{{ i + 1 }}</td>
+                <td>{{ getMedicineName(sale.medicineId) }}</td>
+                <td>{{ sale.saleDate | date: 'mediumDate' }}</td>
+                <td class="text-end">{{ sale.salePrice }}tk</td>
+                <td class="text-center">{{ sale.quantitySold }}</td>
+                <td class="text-center">{{ sale.discount }}%</td>
+                <td class="text-end">{{ sale.totalPrice }}tk</td>
+                <td>{{ sale.customerName }}</td>
+                <td class="text-center actions-cell">
+                  <div class="btn-group" role="group">
+                    <a
+                      [routerLink]="['/medicine-sales/detail', sale.medicineSaleId]"
+                      class="action-button details-button"
+                      title="View Details"
+                    >
+                      <i class="bi bi-eye-fill me-1"></i> Details
+                    </a>
+                    <a
+                      [routerLink]="['/medicine-sales/edit', sale.medicineSaleId]"
+                      class="action-button edit-button ms-2"
+                      title="Edit Sale"
+                    >
+                      <i class="bi bi-pencil-square me-1"></i> Edit
+                    </a>
+                    <button
+                      (click)="deleteMedicineSale(sale.medicineSaleId)"
+                      class="action-button delete-button ms-2"
+                      title="Delete Sale"
+                    >
+                      <i class="bi bi-trash-fill me-1"></i> Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,175 @@
+<!-- test-reports.component.html -->
+<div class="container-fluid mt-4">
+  <!-- Header and Alerts -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="text-primary">
+        <i class="bi bi-clipboard2-pulse me-2"></i>Test Report Management
+      </h2>
+
+      <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show">
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = null"></button>
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show">
+        {{ successMessage }}
+        <button type="button" class="btn-close" (click)="successMessage = null"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports List -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <i class="bi bi-list-ul me-2"></i>Test Reports
+      </h5>
+      <button class="btn btn-sm btn-light" (click)="loadReports()">
+        <i class="bi bi-arrow-clockwise"></i> Refresh
+      </button>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="isLoading" class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading reports...</p>
+      </div>
+
+      <div *ngIf="!isLoading" class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Prescription ID</th>
+              <th>Test Result</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let report of reports">
+              <td class="fw-bold">{{ report.testReportId }}</td>
+              <td>{{ report.prescriptionTestId }}</td>
+              <td>{{ report.testResult | truncate:30 }}</td>
+              <td>
+                <span class="badge rounded-pill" [ngClass]="{
+                  'bg-success': report.isFinalized,
+                  'bg-warning text-dark': !report.isFinalized
+                }">
+                  <i class="bi" [class.bi-check-circle]="report.isFinalized"
+                    [class.bi-pencil]="!report.isFinalized"></i>
+                  {{ report.isFinalized ? 'Finalized' : 'Draft' }}
+                </span>
+              </td>
+              <td>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-primary" (click)="selectReport(report)" title="Edit">
+                    <i class="bi bi-pencil-square">Edit</i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteReport(report.testReportId)"
+                    title="Delete">
+                    <i class="bi bi-trash">Delete</i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="reports.length === 0">
+              <td colspan="5" class="text-center py-4 text-muted">
+                <i class="bi bi-exclamation-circle me-2"></i>No test reports found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create New Report -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">
+        <i class="bi bi-plus-circle me-2"></i>Create New Test Report
+      </h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="createReport()" class="row g-3">
+        <div class="col-md-6">
+          <label for="prescriptionId" class="form-label">Prescription Test ID</label>
+          <input type="number" class="form-control" id="prescriptionId" [(ngModel)]="newReport.prescriptionTestId"
+            name="prescriptionTestId" required>
+        </div>
+
+        <div class="col-12">
+          <label for="testResult" class="form-label">Test Result</label>
+          <textarea class="form-control" id="testResult" rows="3" [(ngModel)]="newReport.testResult" name="testResult"
+            required></textarea>
+        </div>
+
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="isFinalized" [(ngModel)]="newReport.isFinalized"
+              name="isFinalized">
+            <label class="form-check-label" for="isFinalized">Finalized Report</label>
+          </div>
+          <small class="text-muted">Finalized reports cannot be modified later</small>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-success me-2">
+            <i class="bi bi-save me-1"></i>Create Report
+          </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="resetNewReportForm()">
+            <i class="bi bi-x-circle me-1"></i>Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Report -->
+  <div class="card shadow-sm" *ngIf="selectedReport">
+    <div class="card-header bg-warning text-white">
+      <h5 class="mb-0">
+        <i class="bi bi-pencil-square me-2"></i>Edit Test Report #{{ selectedReport.testReportId }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="updateReport()" class="row g-3">
+        <div class="col-md-6">
+          <label for="editPrescriptionId" class="form-label">Prescription Test ID</label>
+          <input type="number" class="form-control" id="editPrescriptionId"
+            [(ngModel)]="selectedReport.prescriptionTestId" name="editPrescriptionTestId" required>
+        </div>
+
+        <div class="col-12">
+          <label for="editTestResult" class="form-label">Test Result</label>
+          <textarea class="form-control" id="editTestResult" rows="3" [(ngModel)]="selectedReport.testResult"
+            name="editTestResult" required></textarea>
+        </div>
+
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="editIsFinalized"
+              [(ngModel)]="selectedReport.isFinalized" name="editIsFinalized">
+            <label class="form-check-label" for="editIsFinalized">Finalized Report</label>
+          </div>
+          <div *ngIf="selectedReport.isFinalized" class="alert alert-warning mt-2">
+            <i class="bi bi-exclamation-triangle me-2"></i>Warning: Finalizing this report will prevent future edits.
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary me-2">
+            <i class="bi bi-save me-1"></i>Update Report
+          </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="cancelEdit()">
+            <i class="bi bi-x-circle me-1"></i>Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

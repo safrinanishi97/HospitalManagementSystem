@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Prescription List</h2>
+    <button class="btn btn-primary" (click)="createNew()">
+      <i class="bi bi-plus-circle"></i> Create New
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && prescriptions.length === 0" class="alert alert-info">
+    No prescriptions found.
+  </div>
+
+  <table *ngIf="!isLoading && prescriptions.length > 0" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Prescription No</th>
+        <th>Doctor</th>
+        <th>Prescription Date</th>
+        <th>Next Visit Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of prescriptions">
+        <td>{{ p.prescriptionNo }}</td>
+        <td>{{ p.firstName }} {{ p.lastName }}</td>
+        <td>{{ p.prescriptionDate | date:'mediumDate' }}</td>
+        <td>{{ p.nextVisitDate | date:'mediumDate' }}</td>
+
+        <td>
+          <button class="btn btn-sm btn-info me-2" (click)="viewDetails(p.prescriptionId)">
+            <i class="bi bi-eye"></i> View
+          </button>
+          <a [routerLink]="['/prescriptions/edit', p.prescriptionId]" class="btn btn-sm btn-warning me-1">Edit</a>
+          <button class="btn btn-sm btn-danger" (click)="deletePrescription(p.prescriptionId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,408 @@
+<!-- <div class="container mt-4">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3>Create New Appointment</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #appointmentForm="ngForm">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="patientNo" class="form-label">Patient Number</label>
+            <input
+              type="text"
+              class="form-control"
+              id="patientNo"
+              [(ngModel)]="appointment.patientNo"
+              name="patientNo"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="doctorId" class="form-label">Doctor ID</label>
+            <input
+              type="number"
+              class="form-control"
+              id="doctorId"
+              [(ngModel)]="appointment.doctorId"
+              name="doctorId"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              [(ngModel)]="appointment.firstName"
+              name="firstName"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              [(ngModel)]="appointment.lastName"
+              name="lastName"
+              required
+            />
+          </div>
+          <div class="col-md-2">
+            <label for="age" class="form-label">Age</label>
+            <input
+              type="number"
+              class="form-control"
+              id="age"
+              [(ngModel)]="appointment.age"
+              name="age"
+              required
+            />
+          </div> -->
+<!-- contact Number: -->
+<!-- <div class="form-group">
+            <label for="contactNumber">Contact Number</label>
+            <input
+              type="text"
+              id="contactNumber"
+              [(ngModel)]="appointment.patientPhone"
+              name="contactNumber"
+              class="form-control"
+            />
+          </div> -->
+<!-- ai porjonto         -->
+<!-- <div class="col-md-6">
+            <label for="appointmentDate" class="form-label"
+              >Appointment Date</label
+            >
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="appointmentDate"
+              [(ngModel)]="appointment.appointmentDate"
+              name="appointmentDate"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="referralCode" class="form-label">Reffer Code:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="referralCode"
+              [(ngModel)]="appointment.referralCode"
+              name="referralCode"
+              required
+            />
+          </div>
+        </div> -->
+
+<!-- <div class="row mb-3"> -->
+<!-- Gender Selection (Dynamic Dropdown) -->
+
+<!-- <div class="col-md-2">
+            <label class="form-label">Gender</label>
+            <select
+              class="form-control"
+              [(ngModel)]="appointment.gender"
+              name="gender"
+              required
+            >
+              <option
+                *ngFor="let gender of getEnumOptions(Gender)"
+                [value]="gender.value"
+              >
+                {{ gender.key }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="visitType">Visit Type</label>
+            <select
+              id="visitType"
+              name="visitType"
+              class="form-control"
+              [(ngModel)]="appointment.visitType"
+            >
+              <option
+                *ngFor="let option of getEnumOptions(VisitType)"
+                [value]="option.value"
+              >
+                {{ option.key }}
+              </option>
+            </select>
+          </div> -->
+
+<!-- Appointment Status (Dynamic Dropdown) -->
+
+<!-- <div class="col-md-3">
+            <label class="form-label">Status</label>
+            <select
+              class="form-control"
+              [(ngModel)]="appointment.appointmentStatus"
+              name="appointmentStatus"
+              required
+            >
+              <option
+                *ngFor="let status of getEnumOptions(AppointmentStatus)"
+                [value]="status.value"
+              >
+                {{ status.key }}
+              </option>
+            </select>
+          </div> -->
+<!-- Appointment Type (Dynamic Dropdown) -->
+
+<!-- <div class="col-md-3">
+            <label class="form-label">Type</label>
+            <select
+              class="form-control"
+              [(ngModel)]="appointment.appointmentType"
+              name="appointmentType"
+              required
+            >
+              <option
+                *ngFor="let type of getEnumOptions(AppointmentType)"
+                [value]="type.value"
+              >
+                {{ type.key }}
+              </option>
+            </select>
+          </div>
+        </div> -->
+
+<!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button
+            type="button"
+            class="btn btn-secondary me-md-2"
+            (click)="cancel()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!appointmentForm.form.valid"
+          >
+            Create
+          </button>
+        </div> -->
+
+<!-- // ae poddhotite baki routing gulo thik korbo -->
+<!-- </form>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-gradient bg-primary text-white">
+      <h3 class="text-center">📋 Create New Appointment</h3>
+    </div>
+    <div class="card-body bg-light">
+      <form (ngSubmit)="onSubmit()" #appointmentForm="ngForm">
+        <div class="row">
+          <!-- Patient Info Section -->
+          <div class="col-md-6 border-end pe-4">
+            <h5 class="mb-3" style="color: black">🧍 Patient Information</h5>
+
+            <div class="mb-3">
+              <label for="patientNo" class="form-label">Patient Number</label>
+              <input
+                type="text"
+                class="form-control border-primary"
+                id="patientNo"
+                [(ngModel)]="appointment.patientNo"
+                name="patientNo"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control border-primary"
+                id="firstName"
+                [(ngModel)]="appointment.firstName"
+                name="firstName"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control border-primary"
+                id="lastName"
+                [(ngModel)]="appointment.lastName"
+                name="lastName"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="age" class="form-label">Age</label>
+              <input
+                type="number"
+                class="form-control border-primary"
+                id="age"
+                [(ngModel)]="appointment.age"
+                name="age"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="contactNumber" class="form-label"
+                >Contact Number</label
+              >
+              <input
+                type="text"
+                class="form-control border-primary"
+                id="contactNumber"
+                [(ngModel)]="appointment.patientPhone"
+                name="contactNumber"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Gender</label>
+              <select
+                class="form-control border-primary"
+                [(ngModel)]="appointment.gender"
+                name="gender"
+                required
+              >
+                <option
+                  *ngFor="let gender of getEnumOptions(Gender)"
+                  [value]="gender.value"
+                >
+                  {{ gender.key }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="visitType" class="form-label">Visit Type</label>
+              <select
+                id="visitType"
+                name="visitType"
+                class="form-control border-primary"
+                [(ngModel)]="appointment.visitType"
+              >
+                <option
+                  *ngFor="let option of getEnumOptions(VisitType)"
+                  [value]="option.value"
+                >
+                  {{ option.key }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- AppointmentDoctor Info Section -->
+          <div class="col-md-6 ps-4">
+            <h5 class="mb-3" style="color: black">📝 Appointment Details</h5>
+
+            <div class="mb-3">
+              <label for="doctorId" class="form-label">Doctor ID</label>
+              <input
+                type="number"
+                class="form-control border-success"
+                id="doctorId"
+                [(ngModel)]="appointment.doctorId"
+                name="doctorId"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="appointmentDate" class="form-label"
+                >Appointment Date</label
+              >
+              <input
+                type="datetime-local"
+                class="form-control border-success"
+                id="appointmentDate"
+                [(ngModel)]="appointment.appointmentDate"
+                name="appointmentDate"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="referralCode" class="form-label">Referral Code</label>
+              <input
+                type="text"
+                class="form-control border-success"
+                id="referralCode"
+                [(ngModel)]="appointment.referralCode"
+                name="referralCode"
+                required
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Status</label>
+                <select
+                  class="form-control border-success"
+                  [(ngModel)]="appointment.appointmentStatus"
+                  name="appointmentStatus"
+                  required
+                >
+                  <option
+                    *ngFor="let status of getEnumOptions(AppointmentStatus)"
+                    [value]="status.value"
+                  >
+                    {{ status.key }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label">AppointmentCategory</label>
+                <select
+                  class="form-control border-success"
+                  [(ngModel)]="appointment.appointmentType"
+                  name="appointmentType"
+                  required
+                >
+                  <option
+                    *ngFor="let type of getEnumOptions(AppointmentType)"
+                    [value]="type.value"
+                  >
+                    {{ type.key }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-end mt-4">
+          <button
+            type="button"
+            class="btn btn-outline-secondary me-2"
+            (click)="cancel()"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!appointmentForm.form.valid"
+          >
+            Create Appointment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

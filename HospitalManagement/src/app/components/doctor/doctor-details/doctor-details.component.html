@@ -1,0 +1,86 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">👨‍⚕️Doctor Details :</h2>
+    <a
+      routerLink="/doctors"
+      class="btn btn-outline-primary px-4 py-2 rounded-pill"
+    >
+      <i class="bi bi-arrow-left-circle"></i> Back to List
+    </a>
+  </div>
+
+  <div class="card shadow-lg border-light rounded-lg">
+    <div class="card-body">
+      <div class="row mb-3" *ngIf="doctor">
+        <!-- Doctor Image -->
+        <div class="col-md-3 text-center">
+          <img
+            *ngIf="doctor.imageUrl"
+            [src]="'http://localhost:5068' + doctor.imageUrl"
+            alt="Doctor Photo"
+            class="rounded-circle img-fluid shadow-sm hover-zoom"
+            style="
+              width: 150px;
+              height: 150px;
+              object-fit: cover;
+              transition: transform 0.3s ease;
+            "
+          />
+          <div *ngIf="!doctor.imageUrl" class="text-muted small mt-2">
+            No Image Available
+          </div>
+        </div>
+
+        <!-- Doctor Info -->
+        <div class="col-md-9">
+          <h4 class="mb-3 text-dark fw-bold">
+            {{ doctor.firstName }} {{ doctor.lastName }}
+          </h4>
+          <p class="mb-1 text-muted">
+            <strong>📱Phone:</strong> {{ doctor.phone }}
+          </p>
+          <p class="mb-1 text-muted">
+            <strong>📥Email:</strong> {{ doctor.email }}
+          </p>
+          <p class="mb-1 text-muted">
+            <strong>Department:</strong> {{ doctor.departmentName }}
+          </p>
+          <p class="mb-1 text-muted">
+            <strong>Specialization:</strong> {{ doctor.specializationName }}
+          </p>
+
+          <!-- Doctor Chambers -->
+          <div *ngFor="let chamber of doctor.doctorChambers" class="mb-3">
+            <div class="card bg-light border-info rounded-lg p-3">
+              <strong>Chamber info:</strong><br />
+              Chamber NO: {{ chamber.chamberId }}<br />
+              Available Time: {{ $any(chamber).formattedAvailableTime }}
+            </div>
+          </div>
+
+          <!-- Doctor Schedules -->
+          <div *ngFor="let schedule of doctor.doctorSchedules" class="mb-3">
+            <div class="card bg-light border-success rounded-lg p-3">
+              <strong>Doctor Schedule:</strong><br />
+              Days Of Week: {{ schedule.daysOfWeek }}<br />
+              Time Duration: {{ $any(schedule).formattedStartTime }} -
+              {{ $any(schedule).formattedEndTime }}
+            </div>
+          </div>
+
+          <!-- Doctor fee -->
+          <div *ngFor="let fee of doctor.doctorFees" class="mb-3">
+            <div class="card bg-light border-success rounded-lg p-3">
+              <strong>Consultation Fee:</strong><br />
+              Charge :{{ fee.fees }}<br />
+              Discount:
+              {{ fee.discountAmount + "%" || "N/A" }} <br />
+
+              Consultation Type:{{ fee.visitType }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

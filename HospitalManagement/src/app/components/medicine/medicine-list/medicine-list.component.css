@@ -1,0 +1,119 @@
+/* Custom styles for the Medicine Inventory page */
+.medicine-inventory-container {
+  margin-top: 3rem;
+}
+
+.medicine-inventory-heading {
+  color: #007bff; /* Primary blue */
+  margin-bottom: 2rem;
+}
+
+.add-medicine-button {
+  background-color: #28a745; /* Success green */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.add-medicine-button:hover {
+  background-color: #218838;
+}
+
+.error-message {
+  color: #dc3545; /* Danger red */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.medicine-card {
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.075);
+  border-radius: 0.5rem;
+}
+
+.medicine-table {
+  margin-bottom: 0;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+  overflow: hidden; /* To contain rounded corners */
+}
+
+.medicine-table thead {
+  background-color: #6c757d; /* Secondary gray */
+  color: white;
+}
+
+.medicine-table th,
+.medicine-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.medicine-table th {
+  font-weight: bold;
+}
+
+.medicine-table tbody tr:nth-child(even) {
+  background-color: #e9ecef; /* Slightly darker gray for even rows */
+}
+
+.medicine-table tbody .hover-row:hover {
+  background-color: #d1ecf1; /* Light cyan on hover */
+  cursor: pointer; /* Optional: change cursor to indicate interactivity */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.action-button {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  border-radius: 0.2rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: opacity 0.2s ease;
+}
+
+.action-button:hover {
+  opacity: 0.8;
+}
+
+.details-button {
+  background-color: #17a2b8; /* Info blue */
+  color: white;
+  border: 1px solid #17a2b8;
+}
+
+.edit-button {
+  background-color: #ffc107; /* Warning yellow */
+  color: #212529;
+  border: 1px solid #ffc107;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Danger red */
+  color: white;
+  border: 1px solid #dc3545;
+}
+
+.no-medicines-message {
+  background-color: #fff3cd; /* Warning light yellow */
+  color: #85640a;
+  padding: 1rem 1.5rem;
+  border: 1px solid #ffeeba;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  text-align: center;
+}

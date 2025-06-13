@@ -1,0 +1,121 @@
+
+/* Styles for the main container */
+.medicine-inventory-container {
+  background-color: #f8f9fa; /* Light grey background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styles for the heading */
+.medicine-inventory-heading {
+  color: #007bff; /* Primary blue color */
+  margin-bottom: 1.5rem;
+}
+
+/* Styles for the "Add New Medicine/Profit Entry" button */
+.add-medicine-button {
+  background-color: #28a745; /* Success green color */
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.add-medicine-button:hover {
+  background-color: #218838; /* Darker shade of green */
+}
+
+/* Styles for the error message */
+.error-message {
+  color: #dc3545; /* Danger red color */
+  margin-left: 1rem;
+}
+
+/* Styles for the medicine card */
+.medicine-card {
+  border: 1px solid #ced4da; /* Light grey border */
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+/* Styles for the medicine table */
+.medicine-table {
+  margin-bottom: 0; /* Remove default bottom margin */
+}
+
+.medicine-table thead.table-info th {
+  background-color: #17a2b8; /* Info blue color for header */
+  color: white;
+  border-color: #17a2b8;
+}
+
+.medicine-table th,
+.medicine-table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+  border-color: #dee2e6; /* Light grey table border */
+}
+
+.medicine-table tbody tr:hover {
+  background-color: #f5f5f5; /* Light grey on hover */
+  cursor: pointer;
+}
+
+/* Styles for the actions cell */
+.actions-cell {
+  white-space: nowrap; /* Prevent buttons from wrapping */
+}
+
+/* Styles for the action buttons */
+.action-button {
+  border: 1px solid transparent;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.details-button {
+  background-color: #007bff; /* Primary blue */
+  color: white;
+}
+
+.details-button:hover {
+  background-color: #0056b3; /* Darker blue */
+}
+
+.edit-button {
+  background-color: #ffc107; /* Warning yellow */
+  color: #212529; /* Dark text on yellow */
+}
+
+.edit-button:hover {
+  background-color: #e0a800; /* Darker yellow */
+}
+
+.delete-button {
+  background-color: #dc3545; /* Danger red */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+/* Styles for the "No medicines/profits available" message */
+.no-medicines-message {
+  background-color: #f0f8ff; /* Light blue background */
+  color: #17a2b8; /* Info blue color */
+  padding: 1rem;
+  border: 1px solid #add8e6; /* Light blue border */
+  border-radius: 5px;
+  text-align: center;
+}

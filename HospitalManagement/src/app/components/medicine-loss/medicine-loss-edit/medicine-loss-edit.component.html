@@ -1,0 +1,75 @@
+<div class="container mt-5">
+
+  <div *ngIf="loading" class="alert alert-info" role="alert">
+    Loading...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="card shadow-sm border-success" *ngIf="!loading && !error && editForm">
+    <div class="card-header bg-success text-white py-3">
+      <h5 class="mb-0">Edit Medicine Loss</h5>
+    </div>
+    <div class="card-body p-4">
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="medicinePurchaseId" class="form-label"><b>Medicine Purchase ID</b></label>
+          <input type="number" class="form-control" id="medicinePurchaseId" formControlName="medicinePurchaseId" required>
+          <div *ngIf="editForm.get('medicinePurchaseId')?.invalid && (editForm.get('medicinePurchaseId')?.dirty || editForm.get('medicinePurchaseId')?.touched)" class="text-danger">
+            Medicine Purchase ID is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="lossDate" class="form-label"><b>Loss Date</b></label>
+          <input type="date" class="form-control" id="lossDate" formControlName="lossDate" required>
+          <div *ngIf="editForm.get('lossDate')?.invalid && (editForm.get('lossDate')?.dirty || editForm.get('lossDate')?.touched)" class="text-danger">
+            Loss Date is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="quantityLoss" class="form-label"><b>Quantity Loss</b></label>
+          <input type="number" class="form-control" id="quantityLoss" formControlName="quantityLoss" required>
+          <div *ngIf="editForm.get('quantityLoss')?.invalid && (editForm.get('quantityLoss')?.dirty || editForm.get('quantityLoss')?.touched)" class="text-danger">
+            <div *ngIf="editForm.get('quantityLoss')?.errors?.['required']">Quantity Loss is required.</div>
+            <div *ngIf="editForm.get('quantityLoss')?.errors?.['min']">Quantity Loss must be at least 1.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="lossAmount" class="form-label"><b>Loss/Unit</b></label>
+          <input type="number" class="form-control" id="lossAmount" formControlName="lossAmount" required>
+          <div *ngIf="editForm.get('lossAmount')?.invalid && (editForm.get('lossAmount')?.dirty || editForm.get('lossAmount')?.touched)" class="text-danger">
+            <div *ngIf="editForm.get('lossAmount')?.errors?.['required']">Loss Amount is required.</div>
+            <div *ngIf="editForm.get('lossAmount')?.errors?.['min']">Loss Amount must be at least 0.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="totalLoss" class="form-label"><b>Total Loss</b></label>
+          <input type="number" class="form-control" id="totalLoss" formControlName="totalLoss" [readonly]="true">
+          <div *ngIf="editForm.get('totalLoss')?.invalid && (editForm.get('totalLoss')?.dirty || editForm.get('totalLoss')?.touched)" class="text-danger">
+            Total Loss is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="lossReason" class="form-label"><b>Loss Reason</b></label>
+          <input type="text" class="form-control" id="lossReason" formControlName="lossReason" required>
+          <div *ngIf="editForm.get('lossReason')?.invalid && (editForm.get('lossReason')?.dirty || editForm.get('lossReason')?.touched)" class="text-danger">
+            Loss Reason is required.
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid || loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Update
+          </button>
+          <a routerLink="/medicine-losses" class="btn btn-secondary ms-2">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
